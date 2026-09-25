@@ -1,0 +1,81 @@
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.status {
+  color: #b45309;
+  font-size: 0.9rem;
+}
+
+.summary ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.machineGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.card {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.card[data-state="available"] {
+  border-color: #16a34a;
+  background: #f0fdf4;
+}
+
+.card[data-state="in_use"] {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.card[data-state="error"] {
+  border-color: #dc2626;
+  background: #fef2f2;
+}
+
+.card[data-state="unknown"],
+.card[data-state="maintenance"] {
+  border-color: #9ca3af;
+  background: #f9fafb;
+}
+
+/* P2-001: applied to the machine matched by the ?machine= query param
+   (per-machine QR deep link), on top of whichever [data-state] border/bg
+   above already applies. */
+.cardHighlighted {
+  outline: 3px solid #7c3aed;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+}
+
+.stateLabel {
+  font-weight: 600;
+}
+
+.reportPicker {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border: 1px dashed #9ca3af;
+  border-radius: 0.375rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.reportAck {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #4b5563;
+}
