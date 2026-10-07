@@ -7,7 +7,7 @@
 // rather than a cookie check.
 export const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8081";
 
-export type MachineState = "available" | "in_use" | "done" | "maintenance" | "error" | "unknown";
+export type MachineState = "available" | "in_use" | "maintenance" | "error" | "unknown";
 
 export interface DashboardMachine {
   machineId: string;
