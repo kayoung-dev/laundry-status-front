@@ -1,0 +1,31 @@
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.badge[data-tone="neutral"] {
+  background: var(--state-neutral-soft);
+}
+
+.badge[data-tone="success"] {
+  background: var(--state-available-soft);
+}
+
+.badge[data-tone="info"] {
+  background: var(--state-in-use-soft);
+}
+
+.badge[data-tone="danger"] {
+  background: var(--color-danger-soft);
+}
+
+.badge[data-emphasis] {
+  font-weight: 600;
+}
+
+.badge[data-tone="danger"][data-emphasis] {
+  color: var(--color-danger);
+}
