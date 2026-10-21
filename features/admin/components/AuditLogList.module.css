@@ -1,0 +1,6 @@
+.audit {
+  margin: 0;
+  padding-left: 1rem;
+  font-size: 0.8rem;
+  color: var(--color-text-subtle);
+}

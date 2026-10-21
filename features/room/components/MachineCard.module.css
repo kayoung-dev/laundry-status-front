@@ -1,0 +1,45 @@
+.card {
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+}
+
+.card[data-state="available"] {
+  border-color: var(--state-available);
+  background: var(--state-available-bg);
+}
+
+.card[data-state="in_use"] {
+  border-color: var(--state-in-use);
+  background: var(--state-in-use-bg);
+}
+
+.card[data-state="error"] {
+  border-color: var(--state-error);
+  background: var(--state-error-bg);
+}
+
+.card[data-state="unknown"],
+.card[data-state="maintenance"] {
+  border-color: var(--state-neutral);
+  background: var(--state-neutral-bg);
+}
+
+/* P2-001: applied to the machine matched by the ?machine= query param
+   (per-machine QR deep link), on top of whichever [data-state] border/bg
+   above already applies. */
+.cardHighlighted {
+  outline: 3px solid var(--color-highlight);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--color-highlight-ring);
+}
+
+.stateLabel {
+  font-weight: 600;
+}
+
+.reportAck {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}

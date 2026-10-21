@@ -1,0 +1,11 @@
+.message[data-tone="warning"] {
+  color: var(--color-warning);
+}
+
+.message[data-tone="danger"] {
+  color: var(--color-danger);
+}
+
+.message[data-size="sm"] {
+  font-size: 0.9rem;
+}
