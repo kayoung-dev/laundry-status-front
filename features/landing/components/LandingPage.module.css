@@ -1,0 +1,19 @@
+.root {
+  min-height: 100vh;
+  background: var(--background-100);
+  color: var(--gray-1000);
+  font-family: var(--font-geist), var(--font-noto-kr), -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.root a:focus-visible,
+.root button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--blue-700);
+}
+
+@media (max-width: 767px) {
+  /* Room for the fixed bottom tab bar. */
+  .root {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+}

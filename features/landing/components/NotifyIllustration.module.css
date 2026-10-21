@@ -1,0 +1,61 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.notice {
+  width: 232px;
+  box-sizing: border-box;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--background-100);
+  box-shadow: 0 0 0 1px var(--gray-alpha-200), 0 8px 16px -10px #00000029;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: 8px;
+  background: var(--blue-100);
+  color: var(--blue-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+}
+
+.meta {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--gray-900);
+}
+
+.watching {
+  width: 200px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--blue-100);
+  color: var(--blue-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+}

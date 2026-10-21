@@ -1,0 +1,165 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--wash-tint-100);
+  box-shadow: inset 0 -1px 0 var(--wash-line);
+}
+
+.inner {
+  max-width: 1200px;
+  min-height: 64px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.home {
+  height: 40px;
+  margin-left: -6px;
+  padding: 0 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  color: var(--gray-1000);
+  text-decoration: none;
+}
+
+.divider {
+  width: 1px;
+  height: 20px;
+  margin: 0 6px;
+  background: var(--gray-200);
+}
+
+.room {
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gray-1000);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--green-700);
+}
+
+.nav {
+  margin-left: 8px;
+}
+
+.nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.navLink {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gray-900);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.navLink[aria-current="page"] {
+  background: var(--background-100);
+  box-shadow: 0 0 0 1px var(--wash-line-strong);
+  color: var(--gray-1000);
+}
+
+.navBadge {
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 9999px;
+  background: var(--wash-tint-200);
+  color: var(--blue-900);
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 600;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.iconButton {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--gray-1000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.room,
+.navLink,
+.iconButton,
+.home {
+  transition: background 150ms ease-in-out, color 150ms ease-in-out;
+}
+
+.room:hover,
+.navLink:hover,
+.iconButton:hover {
+  background: var(--wash-tint-300);
+  color: var(--gray-1000);
+}
+
+@media (max-width: 767px) {
+  .inner {
+    min-height: 56px;
+    padding: 0 8px 0 12px;
+    gap: 2px;
+    flex-wrap: nowrap;
+  }
+
+  .home {
+    width: 44px;
+    height: 44px;
+    margin-left: 0;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .divider,
+  .nav {
+    display: none;
+  }
+
+  .room {
+    height: 44px;
+    padding: 0 8px;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+
+  .iconButton {
+    width: 44px;
+    height: 44px;
+  }
+}

@@ -1,0 +1,49 @@
+.waves {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+@keyframes drift { to { transform: translateX(-50%); } }
+@keyframes driftBack { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+.back,
+.front {
+  position: absolute;
+  left: 0;
+  display: block;
+}
+
+.back {
+  bottom: 8px;
+  height: 64px;
+  animation: drift 16s linear infinite;
+}
+
+.front {
+  bottom: 0;
+  height: 56px;
+  animation: driftBack 11s linear infinite;
+}
+
+.waves[data-size="sm"] .back { height: 48px; bottom: 6px; }
+.waves[data-size="sm"] .front { height: 40px; }
+
+@media (max-width: 767px) {
+  .back { height: 44px; bottom: 6px; }
+  .front { height: 38px; }
+
+  .waves[data-size="sm"] .back { height: 34px; bottom: 4px; }
+  .waves[data-size="sm"] .front { height: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back,
+  .front {
+    animation: none;
+  }
+}

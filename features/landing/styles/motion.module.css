@@ -1,0 +1,28 @@
+/* Shared motion for the landing page. Everything stops under prefers-reduced-motion. */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes toast {
+  0%, 6% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  12%, 72% { opacity: 1; transform: none; }
+  80%, 100% { opacity: 0; transform: translateY(-6px); }
+}
+
+.rise { animation: rise 700ms cubic-bezier(0.175, 0.885, 0.32, 1.1) both; }
+.d1 { animation-delay: 90ms; }
+.d2 { animation-delay: 180ms; }
+.d3 { animation-delay: 270ms; }
+.d4 { animation-delay: 360ms; }
+.pulse { animation: pulse 1.6s ease-in-out infinite; }
+.bob { animation: bob 4s ease-in-out infinite; }
+.toast { animation: toast 6s ease-in-out infinite; }
+.rotate { animation: spin 10s linear infinite; transform-origin: 50% 50%; will-change: transform; }
+.rotateSlow { animation: spin 18s linear infinite; transform-origin: 50% 50%; will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .pulse, .bob, .toast, .rotate, .rotateSlow { animation: none; }
+}

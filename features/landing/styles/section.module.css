@@ -1,0 +1,51 @@
+/* Section layout shared by the landing sections. */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 144px 24px;
+  box-sizing: border-box;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--blue-900);
+}
+
+.title {
+  margin: 0;
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
+  letter-spacing: -1.6px;
+  word-break: keep-all;
+}
+
+/* Line break that only applies on phones. */
+.mobileBreak {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .container {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding: 88px 16px;
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -1px;
+  }
+
+  .mobileBreak {
+    display: inline;
+  }
+}

@@ -1,0 +1,161 @@
+.footer {
+  background: var(--page-bg);
+  box-shadow: inset 0 1px 0 var(--wash-line);
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px 24px 32px;
+  box-sizing: border-box;
+}
+
+/* Desktop: brand + operator line on the left, three link columns on the right. */
+.columns {
+  display: grid;
+  grid-template-columns: minmax(280px, 2fr) repeat(3, minmax(140px, 1fr));
+  grid-template-areas:
+    "brand service help ops"
+    "operator service help ops";
+  grid-template-rows: auto 1fr;
+  column-gap: 48px;
+  row-gap: 14px;
+}
+
+.brand {
+  grid-area: brand;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.about {
+  margin: 0;
+  max-width: 300px;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--gray-900);
+  word-break: keep-all;
+}
+
+.operator {
+  grid-area: operator;
+  margin: 0;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--gray-900);
+}
+
+.nav[data-group="service"] { grid-area: service; }
+.nav[data-group="help"] { grid-area: help; }
+.nav[data-group="ops"] { grid-area: ops; }
+
+.navTitle {
+  margin: 0 0 14px;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+.nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.link {
+  color: var(--gray-900);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--gray-1000);
+}
+
+.strong {
+  font-weight: 600;
+}
+
+.bottom {
+  margin-top: 48px;
+  padding-top: 20px;
+  box-shadow: inset 0 1px 0 var(--gray-200);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--gray-900);
+}
+
+.legal {
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 1023px) {
+  .columns {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-areas:
+      "brand brand brand"
+      "service help ops"
+      "operator operator operator";
+    row-gap: 32px;
+  }
+}
+
+/* Phones: the service links live in the bottom tab bar. */
+@media (max-width: 767px) {
+  .inner {
+    padding: 40px 16px 28px;
+  }
+
+  .columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "brand brand"
+      "help ops"
+      "operator operator";
+    column-gap: 16px;
+    row-gap: 24px;
+  }
+
+  .brand {
+    gap: 12px;
+  }
+
+  .nav[data-group="service"] {
+    display: none;
+  }
+
+  .navTitle {
+    margin-bottom: 6px;
+  }
+
+  .nav ul {
+    gap: 0;
+  }
+
+  .nav .link {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+  }
+
+  .bottom {
+    margin-top: 16px;
+    padding-top: 16px;
+    gap: 8px;
+  }
+
+  .legal {
+    gap: 16px;
+  }
+}
