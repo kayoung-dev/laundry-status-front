@@ -14,12 +14,12 @@
 }
 
 .section .container {
-  padding-top: 168px;
+  padding-top: 232px;
 }
 
 @media (max-width: 1023px) {
   .section .container {
-    padding-top: 144px;
+    padding-top: 192px;
   }
 }
 
@@ -100,7 +100,7 @@
 
 @media (max-width: 767px) {
   .section .container {
-    padding-top: 104px;
+    padding-top: 144px;
   }
 
   .heading {
