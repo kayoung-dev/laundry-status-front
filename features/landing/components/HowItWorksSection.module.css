@@ -2,6 +2,25 @@
   background: var(--background-100);
 }
 
+.section .container {
+  padding-top: 200px;
+  padding-bottom: 200px;
+}
+
+@media (max-width: 1023px) {
+  .section .container {
+    padding-top: 160px;
+    padding-bottom: 160px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section .container {
+    padding-top: 128px;
+    padding-bottom: 128px;
+  }
+}
+
 .heading {
   display: flex;
   flex-wrap: wrap;

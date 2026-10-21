@@ -32,7 +32,7 @@ const STEPS: Step[] = [
 export default function HowItWorksSection() {
   return (
     <section id="how" className={styles.section} aria-labelledby="how-title">
-      <div className={section.container}>
+      <div className={`${section.container} ${styles.container}`}>
         <div className={styles.heading}>
           <div className={styles.headingText}>
             <span className={section.eyebrow}>사용 방법</span>
