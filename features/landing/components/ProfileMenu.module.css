@@ -1,0 +1,122 @@
+.root {
+  position: relative;
+}
+
+.trigger {
+  height: 40px;
+  padding: 0 8px 0 4px;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--gray-1000);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background 150ms ease-in-out;
+}
+
+.trigger:hover,
+.trigger[data-open] {
+  background: var(--wash-tint-300);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background: var(--background-100);
+  box-shadow: 0 0 0 1px var(--wash-line-strong);
+  color: var(--gray-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chevron {
+  display: flex;
+}
+
+.menu {
+  position: absolute;
+  right: 0;
+  top: 48px;
+  width: 248px;
+  padding: 6px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  background: var(--background-100);
+  box-shadow: 0 0 0 1px var(--gray-alpha-200), 0 1px 1px #00000005, 0 4px 8px -4px #0000000a, 0 16px 24px -8px #0000000f;
+  display: flex;
+  flex-direction: column;
+  animation-duration: 200ms;
+}
+
+.identity {
+  padding: 10px 10px 12px;
+  margin-bottom: 6px;
+  box-shadow: inset 0 -1px 0 var(--gray-200);
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.meta {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gray-900);
+}
+
+.item {
+  height: 40px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--gray-1000);
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.item:hover {
+  background: var(--gray-100);
+}
+
+.itemMuted {
+  color: var(--gray-900);
+}
+
+.separator {
+  height: 1px;
+  margin: 6px 0;
+  background: var(--gray-200);
+}
+
+@media (max-width: 767px) {
+  .trigger {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .chevron {
+    display: none;
+  }
+
+  .menu {
+    top: 50px;
+  }
+
+  .item {
+    height: 44px;
+    font-size: 15px;
+  }
+}

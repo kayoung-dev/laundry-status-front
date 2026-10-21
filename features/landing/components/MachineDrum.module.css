@@ -1,0 +1,78 @@
+.door {
+  position: relative;
+  width: 108px;
+  height: 108px;
+  box-sizing: border-box;
+  padding: 9px;
+  border-radius: 9999px;
+  background: #f2f7fc;
+  box-shadow: 0 0 0 1px #d9e6f3;
+}
+
+.door[data-state="mine"] {
+  background: #eaf3fd;
+  box-shadow: 0 0 0 1px #c6defb;
+}
+
+.glass {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: #f6faff;
+  box-shadow: inset 0 0 0 1px #d9e6f3;
+  overflow: hidden;
+}
+
+.door[data-state="running"] .glass { background: #f2f8ff; }
+.door[data-state="mine"] .glass { background: var(--wash-tint-100); box-shadow: inset 0 0 0 1px #c6defb; }
+
+.still,
+.foam,
+.shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+}
+
+.still {
+  background: radial-gradient(circle at 50% 40%, #ffffff 0%, #f3f8fd 52%, #e2ebf5 100%);
+}
+
+.swirl {
+  position: absolute;
+  inset: -12%;
+  border-radius: 9999px;
+  filter: blur(3px);
+  background: conic-gradient(from 0deg, #eef5fe, #c3dcf8 22%, #eef5fe 46%, #d6e7fb 72%, #eef5fe);
+}
+
+.door[data-state="mine"] .swirl {
+  background: conic-gradient(from 0deg, #e3effd, #3d8ff5 16%, #9cc4f7 30%, #e3effd 52%, #b5d4f8 76%, #e3effd);
+}
+
+.foam {
+  background: radial-gradient(circle at 50% 50%, #ffffff8c 0%, #ffffff00 58%);
+}
+
+.shine {
+  background: linear-gradient(150deg, #ffffffc7 0%, #ffffff4d 26%, #ffffff00 48%), linear-gradient(330deg, #ffffff40 0%, #ffffff00 30%);
+  box-shadow: inset 0 0 0 1px #ffffffb3, inset 0 6px 10px -4px #ffffffe6, inset 0 -10px 18px -8px #0064e22e;
+}
+
+.glint {
+  position: absolute;
+  inset: 6%;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  border-top-color: #ffffffe6;
+  transform: rotate(-40deg);
+}
+
+@media (max-width: 767px) {
+  .door {
+    width: 76px;
+    height: 76px;
+    padding: 6px;
+  }
+}

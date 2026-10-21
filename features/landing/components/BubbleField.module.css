@@ -1,0 +1,54 @@
+.field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes rise {
+  0% { transform: translateY(0) scale(0.7); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 0.8; }
+  100% { transform: translateY(-380px) scale(1.15); opacity: 0; }
+}
+
+@keyframes riseSoft {
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  20% { opacity: 0.55; }
+  80% { opacity: 0.4; }
+  100% { transform: translateY(-280px) scale(1.05); opacity: 0; }
+}
+
+.bubble {
+  position: absolute;
+  bottom: -24px;
+  border-radius: 9999px;
+  opacity: 0;
+}
+
+.bubble[data-tone="hero"] {
+  background: #ffffffb3;
+  box-shadow: inset 0 0 0 1px #a9cdf7, inset -2px -3px 0 0 #dcecfd;
+  animation: rise 9s ease-in infinite;
+}
+
+.bubble[data-tone="soft"] {
+  bottom: -20px;
+  background: #ffffffb3;
+  box-shadow: inset 0 0 0 1px #b9d7f8, inset -2px -3px 0 0 #e3effd;
+  animation: riseSoft 14s ease-in infinite;
+}
+
+.bubble[data-tone="dark"] {
+  bottom: -16px;
+  background: #ffffff14;
+  box-shadow: inset 0 0 0 1px #ffffff40;
+  animation: riseSoft 12s ease-in infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble {
+    animation: none !important;
+    opacity: 0.5;
+  }
+}

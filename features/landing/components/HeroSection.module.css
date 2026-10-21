@@ -1,0 +1,150 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--wash-tint-100);
+  background-image: radial-gradient(var(--wash-dot) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 96px 24px 144px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 56px;
+}
+
+.copy {
+  flex: 1 1 440px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.title {
+  margin: 0;
+  font-size: 56px;
+  line-height: 66px;
+  font-weight: 700;
+  letter-spacing: -2.4px;
+  word-break: keep-all;
+}
+
+.accent {
+  color: var(--blue-900);
+}
+
+.lead {
+  margin: 20px 0 0;
+  max-width: 480px;
+  font-size: 18px;
+  line-height: 29px;
+  color: var(--gray-900);
+  word-break: keep-all;
+}
+
+.ctaRow {
+  margin-top: 24px;
+}
+
+.cta {
+  min-height: 44px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--blue-900);
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 150ms ease-in-out;
+}
+
+.cta:hover {
+  color: #0057c2;
+}
+
+.ctaArrow {
+  transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
+}
+
+.cta:hover .ctaArrow {
+  transform: translateX(4px);
+}
+
+.points {
+  list-style: none;
+  margin: 36px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gray-900);
+}
+
+.points li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.check {
+  color: var(--blue-700);
+}
+
+.preview {
+  flex: 1 1 520px;
+  min-width: 0;
+  display: flex;
+}
+
+@media (max-width: 767px) {
+  .inner {
+    padding: 48px 16px 104px;
+    gap: 0;
+  }
+
+  .copy,
+  .preview {
+    flex: 1 1 100%;
+  }
+
+  .title {
+    font-size: 38px;
+    line-height: 46px;
+    letter-spacing: -1.6px;
+  }
+
+  .lead {
+    margin-top: 16px;
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .ctaRow {
+    margin-top: 16px;
+  }
+
+  .cta {
+    font-size: 17px;
+  }
+
+  .points {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta,
+  .ctaArrow {
+    transition: none;
+  }
+}

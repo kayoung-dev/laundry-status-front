@@ -1,0 +1,22 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wordmark {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.logo[data-small] .wordmark {
+  font-size: 16px;
+  letter-spacing: -0.3px;
+}
+
+@media (max-width: 767px) {
+  .logo[data-compact] .wordmark {
+    display: none;
+  }
+}
