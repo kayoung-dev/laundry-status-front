@@ -2,7 +2,7 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 96px 24px;
+  padding: 144px 24px;
   box-sizing: border-box;
 }
 
@@ -27,9 +27,16 @@
   display: none;
 }
 
+@media (max-width: 1023px) {
+  .container {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+}
+
 @media (max-width: 767px) {
   .container {
-    padding: 56px 16px;
+    padding: 88px 16px;
   }
 
   .title {

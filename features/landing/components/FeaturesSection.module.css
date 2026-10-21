@@ -13,8 +13,14 @@
   display: block;
 }
 
-.container {
-  padding-top: 104px;
+.section .container {
+  padding-top: 168px;
+}
+
+@media (max-width: 1023px) {
+  .section .container {
+    padding-top: 144px;
+  }
 }
 
 .heading {
@@ -26,7 +32,7 @@
 
 .grid {
   list-style: none;
-  margin: 48px 0 0;
+  margin: 56px 0 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -93,8 +99,8 @@
 }
 
 @media (max-width: 767px) {
-  .container {
-    padding-top: 64px;
+  .section .container {
+    padding-top: 104px;
   }
 
   .heading {
@@ -102,7 +108,7 @@
   }
 
   .grid {
-    margin-top: 28px;
+    margin-top: 32px;
     grid-template-columns: 1fr;
     gap: 10px;
   }

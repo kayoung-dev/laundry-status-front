@@ -28,7 +28,7 @@
 
 .steps {
   list-style: none;
-  margin: 48px 0 0;
+  margin: 56px 0 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -119,7 +119,7 @@
   }
 
   .steps {
-    margin-top: 28px;
+    margin-top: 32px;
     grid-template-columns: 1fr;
   }
 
