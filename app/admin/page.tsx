@@ -16,7 +16,6 @@ import {
 const STATE_LABEL: Record<MachineState, string> = {
   available: "사용 가능",
   in_use: "사용 중",
-  done: "완료",
   maintenance: "점검 중",
   error: "오류",
   unknown: "확인 불가",

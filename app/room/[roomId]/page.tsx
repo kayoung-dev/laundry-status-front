@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import styles from "./room.module.css";
 
-type MachineState = "available" | "in_use" | "done" | "maintenance" | "error" | "unknown";
+type MachineState = "available" | "in_use" | "maintenance" | "error" | "unknown";
 
 // P2-002: which part of the wash cycle is running. Absent/null whenever the
 // machine isn't in_use, or its OCR text doesn't use the wash-stage
@@ -42,7 +42,6 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8081";
 const STATE_LABEL: Record<MachineState, string> = {
   available: "사용 가능",
   in_use: "사용 중",
-  done: "완료 (세탁물 확인 필요)",
   maintenance: "점검 중",
   error: "오류",
   unknown: "확인 불가",
@@ -62,7 +61,7 @@ const STAGE_LABEL: Record<WashStage, string> = {
 };
 
 // Options offered in the "상태가 달라요" picker.
-const REPORTABLE_STATES: MachineState[] = ["available", "in_use", "done", "error", "unknown"];
+const REPORTABLE_STATES: MachineState[] = ["available", "in_use", "error", "unknown"];
 
 // Anonymous per-browser identifier sent as device_id on POST /reports (plan
 // section 2: student flow has no login). Persisted in localStorage so
