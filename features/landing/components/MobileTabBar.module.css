@@ -14,7 +14,8 @@
     background: var(--background-100);
     box-shadow: inset 0 1px 0 var(--gray-200);
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
   }
 
   .tab {

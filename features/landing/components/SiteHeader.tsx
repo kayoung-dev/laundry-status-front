@@ -2,6 +2,7 @@ import Link from "next/link";
 import Icon from "@/components/ui/Icon";
 import motion from "../styles/motion.module.css";
 import { DEFAULT_ROOM, DEFAULT_ROOM_PATH, NAV_ITEMS } from "../constants";
+import HomeLink from "./HomeLink";
 import ProfileMenu from "./ProfileMenu";
 import styles from "./SiteHeader.module.css";
 import WashOnLogo from "./WashOnLogo";
@@ -11,9 +12,9 @@ export default function SiteHeader({ currentPath }: { currentPath: string }) {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <Link href="/" aria-label="WashOn 홈" className={styles.home}>
+        <HomeLink className={styles.home}>
           <WashOnLogo compactOnMobile />
-        </Link>
+        </HomeLink>
         <span aria-hidden="true" className={styles.divider} />
         <Link href={DEFAULT_ROOM_PATH} className={styles.room} aria-label={`현재 세탁실 ${DEFAULT_ROOM.name} 현황 보기`}>
           <span aria-hidden="true" className={`${styles.liveDot} ${motion.pulse}`} />

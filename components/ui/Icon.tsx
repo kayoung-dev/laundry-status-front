@@ -25,7 +25,6 @@ const ICONS = {
       </>
     ),
   },
-  home: { viewBox: "0 0 20 20", body: <path d="M3 9l7-6 7 6v8a1 1 0 0 1-1 1h-4v-5H8v5H4a1 1 0 0 1-1-1z" fill="currentColor" /> },
   grid: {
     viewBox: "0 0 20 20",
     body: (

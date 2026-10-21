@@ -18,7 +18,6 @@ export interface NavItem {
 }
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "홈", href: "/", icon: "home" },
   { label: "세탁실", href: DEFAULT_ROOM_PATH, icon: "grid" },
   { label: "내 세탁", href: "#", icon: "basket" },
   { label: "위치 안내", href: "#", icon: "pin", badge: "New" },

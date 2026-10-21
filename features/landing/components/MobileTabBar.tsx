@@ -3,7 +3,7 @@ import Icon from "@/components/ui/Icon";
 import { NAV_ITEMS } from "../constants";
 import styles from "./MobileTabBar.module.css";
 
-/** Bottom tab bar replacing the header menu on phones (hidden from 768px). */
+/** Bottom tab bar replacing the header menu on phones (hidden from 768px). Home is the logo. */
 export default function MobileTabBar({ currentPath }: { currentPath: string }) {
   return (
     <nav aria-label="주요 메뉴" className={styles.bar}>
