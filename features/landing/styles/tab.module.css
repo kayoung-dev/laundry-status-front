@@ -1,0 +1,84 @@
+/* Header menu tab: full header height, gradient wash on hover/open, underline when current. */
+.tab {
+  position: relative;
+  isolation: isolate;
+  height: 64px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gray-900);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.tab::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, #dcebfd00 0%, var(--wash-tint-200) 100%);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--blue-900);
+  transform: scaleX(0);
+  transition: transform 280ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.tab:hover {
+  color: var(--gray-1000);
+}
+
+.tab:hover::before {
+  opacity: 0.6;
+}
+
+.tab[aria-expanded="true"]::before,
+.tab[aria-current="page"]::before {
+  opacity: 1;
+}
+
+.tab[aria-current="page"] {
+  color: var(--blue-900);
+  font-weight: 600;
+}
+
+.tab[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.tab:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--blue-700);
+}
+
+@media (max-width: 767px) {
+  .tab {
+    height: 56px;
+    padding: 0 12px;
+    font-size: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab::before,
+  .tab::after {
+    transition: none;
+  }
+}

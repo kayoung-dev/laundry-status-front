@@ -9,19 +9,29 @@ export const DEFAULT_ROOM = {
 
 export const DEFAULT_ROOM_PATH = `/room/${DEFAULT_ROOM.id}`;
 
-// "#" = the page does not exist yet (내 세탁, 위치 안내 need student login / floor maps).
+// Residence halls in the header picker. Static until the backend lists rooms
+// per hall; picking one only changes the label, every link still goes to DEFAULT_ROOM.
+export const HALLS = ["비전관", "은혜관", "하용조관", "벧엘관", "로뎀관", "국제관", "갈대상자관"];
+
+export const DEFAULT_HALL = HALLS[0];
+
+// "#" = the page does not exist yet (내 세탁, 세탁실 위치 need student login / floor maps).
 export interface NavItem {
   label: string;
   href: string;
   icon: IconName;
-  badge?: string;
+  isNew?: boolean;
 }
 
-export const NAV_ITEMS: NavItem[] = [
-  { label: "세탁실", href: DEFAULT_ROOM_PATH, icon: "grid" },
+// The header shows this one as the hall picker; the tab bar and footer link it.
+export const ROOM_NAV_ITEM: NavItem = { label: "생활관 세탁실", href: DEFAULT_ROOM_PATH, icon: "grid" };
+
+export const PAGE_NAV_ITEMS: NavItem[] = [
   { label: "내 세탁", href: "#", icon: "basket" },
-  { label: "위치 안내", href: "#", icon: "pin", badge: "New" },
+  { label: "세탁실 위치", href: "#", icon: "pin", isNew: true },
 ];
+
+export const NAV_ITEMS: NavItem[] = [ROOM_NAV_ITEM, ...PAGE_NAV_ITEMS];
 
 export const HERO_POINTS = ["실시간 기기 현황", "끝나면 알림", "학생 제보로 정확하게"];
 
@@ -52,7 +62,7 @@ export const FEATURES: Feature[] = [
     icon: "pin",
     title: "기기 위치 안내",
     body: "처음 가는 세탁실도 몇 층 어디에 어떤 기기가 있는지 그림으로 찾아요.",
-    link: { label: "위치 안내 보기 →", href: "#" },
+    link: { label: "세탁실 위치 보기 →", href: "#" },
   },
 ];
 
