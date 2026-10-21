@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./admin.module.css";
 import {
@@ -25,6 +25,15 @@ const STATE_LABEL: Record<MachineState, string> = {
 // Mirrors OVERRIDABLE_STATES in backend/src/main/java/dev/washon/admin (OverrideRequest/AdminService).
 const OVERRIDABLE_STATES: MachineState[] = ["maintenance", "error", "unknown"];
 
+// A burst of OCR frames collapses into one GET /admin/machines.
+const STREAM_REFETCH_DEBOUNCE_MS = 300;
+// cameraDown / needsCheck / reportCount are computed at read time and never
+// signalled on the stream, so they are picked up by this periodic re-read.
+const PERIODIC_REFETCH_MS = 15_000;
+// EventSource only retries network errors by itself; after a hard failure
+// (e.g. a 502/503 while the backend restarts) it is reopened after this delay.
+const STREAM_RECONNECT_MS = 5_000;
+
 /**
  * Admin dashboard (US-008). Access control is a client-side check: the
  * session lives in an httpOnly cookie that page scripts cannot read, so this
@@ -40,14 +49,28 @@ export default function AdminDashboardPage() {
   const [audit, setAudit] = useState<Record<string, AuditEntry[]>>({});
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
+  const [liveConnected, setLiveConnected] = useState(false);
+  const [streamAttempt, setStreamAttempt] = useState(0);
+  const refetchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Several re-reads can be in flight (stream, interval, overrides); only the
+  // latest one may write, so a slow older response cannot overwrite newer data.
+  const loadSeq = useRef(0);
 
   const toLogin = useCallback(() => router.replace("/admin/login"), [router]);
 
   const loadMachines = useCallback(async () => {
+    const seq = ++loadSeq.current;
     try {
-      setMachines(await adminFetch<DashboardMachine[]>("/admin/machines"));
+      const next = await adminFetch<DashboardMachine[]>("/admin/machines");
+      if (seq !== loadSeq.current) {
+        return;
+      }
+      setMachines(next);
       setError(null);
     } catch (err) {
+      if (seq !== loadSeq.current) {
+        return;
+      }
       if (err instanceof UnauthorizedError) {
         toLogin();
         return;
@@ -78,6 +101,59 @@ export default function AdminDashboardPage() {
       cancelled = true;
     };
   }, [loadMachines, toLogin]);
+
+  // Live updates: GET /admin/machines/stream signals every committed state
+  // change in any room; each signal triggers a (debounced) re-read of the
+  // dashboard so admin-only fields stay consistent with the API.
+  useEffect(() => {
+    if (!admin) {
+      return;
+    }
+
+    const source = new EventSource(`${API_BASE}/admin/machines/stream`, { withCredentials: true });
+
+    const scheduleRefetch = () => {
+      if (refetchTimer.current) {
+        clearTimeout(refetchTimer.current);
+      }
+      refetchTimer.current = setTimeout(() => {
+        refetchTimer.current = null;
+        void loadMachines();
+      }, STREAM_REFETCH_DEBOUNCE_MS);
+    };
+
+    // Also fires on every automatic reconnect: re-read whatever changed while disconnected.
+    source.onopen = () => {
+      setLiveConnected(true);
+      void loadMachines();
+    };
+    source.addEventListener("machine_changed", scheduleRefetch);
+    let reconnectTimer: ReturnType<typeof setTimeout> | null = null;
+    source.onerror = () => {
+      setLiveConnected(false);
+      if (source.readyState === EventSource.CLOSED) {
+        // The browser gave up (401 after the session expired, or a 5xx while
+        // the backend restarts). The re-read redirects to /admin/login on 401;
+        // otherwise reopen the stream after a pause.
+        void loadMachines();
+        reconnectTimer = setTimeout(() => setStreamAttempt((n) => n + 1), STREAM_RECONNECT_MS);
+      }
+    };
+
+    const interval = setInterval(() => void loadMachines(), PERIODIC_REFETCH_MS);
+
+    return () => {
+      source.close();
+      clearInterval(interval);
+      if (reconnectTimer) {
+        clearTimeout(reconnectTimer);
+      }
+      if (refetchTimer.current) {
+        clearTimeout(refetchTimer.current);
+        refetchTimer.current = null;
+      }
+    };
+  }, [admin, loadMachines, streamAttempt]);
 
   async function override(machineId: string, state: MachineState) {
     setBusy(machineId);
@@ -164,7 +240,8 @@ export default function AdminDashboardPage() {
         <>
           <button type="button" onClick={() => void loadMachines()}>
             새로고침
-          </button>
+          </button>{" "}
+          <span className={styles.message}>{liveConnected ? "실시간 연결됨" : "실시간 연결 끊김 (재연결 중)"}</span>
           <table className={styles.table}>
             <thead>
               <tr>
