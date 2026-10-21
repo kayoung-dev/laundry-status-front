@@ -1,0 +1,36 @@
+/* Transparent rail over the right edge; only the thumb is visible. */
+.rail {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  width: 14px;
+  pointer-events: none;
+}
+
+.thumb {
+  position: absolute;
+  top: 0;
+  right: 3px;
+  width: 6px;
+  border-radius: 9999px;
+  /* Dark glass with a light rim: readable on white, tinted and navy sections. */
+  background: rgba(23, 23, 23, 0.32);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.55);
+  pointer-events: auto;
+  cursor: default;
+  transition: width 120ms ease, background 120ms ease;
+}
+
+.thumb:hover,
+.thumb[data-dragging] {
+  width: 9px;
+  background: rgba(23, 23, 23, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thumb {
+    transition: none;
+  }
+}
