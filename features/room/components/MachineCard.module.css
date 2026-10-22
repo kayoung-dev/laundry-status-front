@@ -240,3 +240,95 @@
   line-height: 18px;
   color: var(--gray-900);
 }
+
+@media (max-width: 767px) {
+  /* Dial beside the name and title; steps, meta and buttons span the card below. */
+  .card {
+    padding: 16px;
+    grid-template-columns: 92px minmax(0, 1fr);
+    grid-template-rows: 1fr auto auto 1fr auto auto auto;
+    grid-template-areas:
+      "dial    ."
+      "dial    head"
+      "dial    title"
+      "dial    ."
+      "details details"
+      "actions actions"
+      "report  report";
+    column-gap: 14px;
+  }
+
+  .head {
+    gap: 6px;
+  }
+
+  .label {
+    order: 3;
+    flex-basis: 100%;
+    font-size: 14px;
+  }
+
+  .badge {
+    height: 22px;
+    padding: 0 8px;
+    gap: 5px;
+    font-size: 11px;
+  }
+
+  .badgeDot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .mineTag {
+    padding: 0 7px;
+  }
+
+  .titleRow {
+    margin-top: 6px;
+    gap: 6px;
+  }
+
+  .title {
+    font-size: 19px;
+    line-height: 26px;
+    letter-spacing: -0.5px;
+  }
+
+  .sub {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .details {
+    margin-top: 14px;
+    gap: 10px;
+  }
+
+  .meta {
+    font-size: 12px;
+  }
+
+  .actions {
+    margin-top: 14px;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .secondary {
+    flex: 1;
+    height: 44px;
+    border-radius: 10px;
+  }
+
+  .ghost {
+    height: 44px;
+    padding: 0 12px;
+    border-radius: 10px;
+  }
+
+  .report {
+    margin-top: 14px;
+    padding-top: 14px;
+  }
+}

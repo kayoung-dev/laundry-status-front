@@ -30,4 +30,45 @@
   font-size: 13px;
   line-height: 20px;
   color: var(--gray-900);
+  word-break: keep-all;
+}
+
+@media (max-width: 767px) {
+  /* One column; the side column's 내 세탁 moves right under the summary. */
+  .layout {
+    padding: 4px 16px 32px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .primary,
+  .secondary {
+    display: contents;
+  }
+
+  .verdictSlot {
+    order: 1;
+  }
+
+  .mineSlot {
+    order: 2;
+  }
+
+  .machinesSlot {
+    order: 3;
+    margin-top: 14px;
+  }
+
+  .note {
+    order: 4;
+    font-size: 12px;
+    line-height: 19px;
+  }
+
+  .locationSlot {
+    order: 5;
+    margin-top: 6px;
+  }
 }

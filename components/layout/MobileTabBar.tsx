@@ -11,7 +11,7 @@ export default function MobileTabBar({ active }: { active?: NavId }) {
         const current = item.id === active;
         return (
           <Link key={item.label} href={item.href} className={styles.tab} aria-current={current ? "page" : undefined}>
-            <Icon name={item.icon} size={22} />
+            <Icon name={(current && item.activeIcon) || item.icon} size={22} />
             {item.label}
           </Link>
         );

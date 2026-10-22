@@ -17,7 +17,7 @@ export default function MyLaundryPanel({ machine, now, alertOn, onToggleAlert, o
   if (!machine) {
     return (
       <section aria-labelledby="mine-heading" className={styles.panel}>
-        <h2 id="mine-heading" className={styles.heading}>
+        <h2 id="mine-heading" className={`${styles.heading} ${styles.emptyHeading}`}>
           내 세탁
         </h2>
         <div className={styles.empty}>
@@ -39,20 +39,21 @@ export default function MyLaundryPanel({ machine, now, alertOn, onToggleAlert, o
         <h2 id="mine-heading" className={styles.heading}>
           내 세탁
         </h2>
-        <span className={styles.machine}>{machine.label}</span>
+        <span className={styles.machine}>
+          {machine.label}
+          {running && view.steps && <span className={styles.headPhase}> · {view.title}</span>}
+        </span>
       </div>
 
       {running && left != null ? (
-        <>
-          <div role="timer" className={styles.timer}>
-            <span className={styles.minutes}>{left}분</span>
-            <span className={styles.left}>남음</span>
-          </div>
-          <p className={styles.endAt}>
+        <div role="timer" className={styles.timer}>
+          <span className={styles.minutes}>{left}분</span>
+          <span className={styles.left}>남음</span>
+          <span className={styles.endAt}>
             {now ? `${formatClock(now, left)} 종료 예정` : "종료 시각 계산 중"}
-            {view.steps && ` · ${view.title}`}
-          </p>
-        </>
+            {view.steps && <span className={styles.endPhase}> · {view.title}</span>}
+          </span>
+        </div>
       ) : (
         <div className={styles.status}>
           <p className={styles.statusTitle}>{notStarted ? "세탁 시작 전이에요" : view.title}</p>

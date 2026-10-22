@@ -36,6 +36,17 @@ const ICONS = {
       </>
     ),
   },
+  "grid-solid": {
+    viewBox: "0 0 20 20",
+    body: (
+      <>
+        <rect x="3" y="3" width="6" height="6" rx="1.5" fill="currentColor" />
+        <rect x="11" y="3" width="6" height="6" rx="1.5" fill="currentColor" />
+        <rect x="3" y="11" width="6" height="6" rx="1.5" fill="currentColor" />
+        <rect x="11" y="11" width="6" height="6" rx="1.5" fill="currentColor" />
+      </>
+    ),
+  },
   "grid-accent": {
     viewBox: "0 0 20 20",
     body: (

@@ -86,3 +86,14 @@
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+@media (max-width: 767px) {
+  .line {
+    margin: 0 6px;
+  }
+
+  .name {
+    font-size: 13px;
+    line-height: 16px;
+  }
+}

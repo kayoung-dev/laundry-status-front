@@ -50,29 +50,37 @@ export default function RoomDashboard({ roomId, highlightMachineId }: RoomDashbo
       <RoomBanner hall={hall} machines={machines} connectionStatus={connectionStatus} />
       <main className={styles.layout}>
         <div className={styles.primary}>
-          <RoomVerdict machines={machines} now={now} loading={loading} isAlertOn={alerts.isOn} onToggleAlert={alerts.toggle} />
-          <MachineSection
-            machines={machines}
-            now={now}
-            loading={loading}
-            myMachineId={myMachineId}
-            highlightMachineId={highlightMachineId}
-            highlightedCardRef={highlightedCardRef}
-            alerts={alerts}
-            reports={reports}
-            onRegister={register}
-          />
+          <div className={styles.verdictSlot}>
+            <RoomVerdict machines={machines} now={now} loading={loading} isAlertOn={alerts.isOn} onToggleAlert={alerts.toggle} />
+          </div>
+          <div className={styles.machinesSlot}>
+            <MachineSection
+              machines={machines}
+              now={now}
+              loading={loading}
+              myMachineId={myMachineId}
+              highlightMachineId={highlightMachineId}
+              highlightedCardRef={highlightedCardRef}
+              alerts={alerts}
+              reports={reports}
+              onRegister={register}
+            />
+          </div>
           <p className={styles.note}>기기 상태는 세탁실 카메라로 확인해요. 실제와 다르면 카드의 ‘상태가 달라요’로 알려 주세요.</p>
         </div>
         <div className={styles.secondary}>
-          <MyLaundryPanel
-            machine={myMachine}
-            now={now}
-            alertOn={myMachine ? alerts.isOn(myMachine.machineId) : false}
-            onToggleAlert={() => myMachine && alerts.toggle(myMachine.machineId)}
-            onUnregister={clearMine}
-          />
-          <LocationTile />
+          <div className={styles.mineSlot}>
+            <MyLaundryPanel
+              machine={myMachine}
+              now={now}
+              alertOn={myMachine ? alerts.isOn(myMachine.machineId) : false}
+              onToggleAlert={() => myMachine && alerts.toggle(myMachine.machineId)}
+              onUnregister={clearMine}
+            />
+          </div>
+          <div className={styles.locationSlot}>
+            <LocationTile />
+          </div>
         </div>
       </main>
     </>

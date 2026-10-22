@@ -70,3 +70,30 @@
   height: 40px;
   display: block;
 }
+
+@media (max-width: 767px) {
+  .banner {
+    background-size: 20px 20px;
+  }
+
+  .inner {
+    padding: 16px 16px 44px;
+    gap: 14px;
+  }
+
+  .notice {
+    padding: 12px 14px;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .wave {
+    height: 28px;
+  }
+}

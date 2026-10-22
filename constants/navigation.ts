@@ -25,11 +25,13 @@ export interface NavItem {
   label: string;
   href: string;
   icon: IconName;
+  /** Tab bar icon while this is the current page. */
+  activeIcon?: IconName;
   isNew?: boolean;
 }
 
 // The header shows this one as the hall picker; the tab bar and footer link it.
-export const ROOM_NAV_ITEM: NavItem = { id: "room", label: "생활관 세탁실", href: DEFAULT_ROOM_PATH, icon: "grid" };
+export const ROOM_NAV_ITEM: NavItem = { id: "room", label: "생활관 세탁실", href: DEFAULT_ROOM_PATH, icon: "grid", activeIcon: "grid-solid" };
 
 export const PAGE_NAV_ITEMS: NavItem[] = [
   { id: "my", label: "내 세탁", href: "#", icon: "basket" },

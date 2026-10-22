@@ -85,3 +85,28 @@
     transition: none;
   }
 }
+
+@media (max-width: 767px) {
+  .dial {
+    width: 92px;
+    height: 92px;
+  }
+
+  .text {
+    gap: 0;
+  }
+
+  .caption {
+    font-size: 10px;
+    line-height: 13px;
+  }
+
+  .value {
+    font-size: 13px;
+    letter-spacing: -0.4px;
+  }
+
+  .value[data-numeric] {
+    font-size: 20px;
+  }
+}

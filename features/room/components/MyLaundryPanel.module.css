@@ -32,11 +32,13 @@
   color: var(--gray-900);
 }
 
+/* The end time wraps under the minutes here and sits beside them on phones. */
 .timer {
   margin-top: 14px;
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: 6px;
+  column-gap: 6px;
 }
 
 .minutes {
@@ -54,8 +56,13 @@
   color: var(--gray-900);
 }
 
+.headPhase {
+  display: none;
+}
+
 .endAt {
-  margin: 4px 0 0;
+  flex-basis: 100%;
+  margin-top: 4px;
   font-size: 14px;
   line-height: 20px;
   color: var(--gray-900);
@@ -172,4 +179,91 @@
 
 .unregister:hover {
   background: var(--gray-100);
+}
+
+@media (max-width: 767px) {
+  .panel {
+    padding: 18px;
+  }
+
+  .heading {
+    font-size: 14px;
+  }
+
+  .emptyHeading {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .headPhase {
+    display: inline;
+  }
+
+  .timer {
+    margin-top: 10px;
+  }
+
+  .minutes {
+    font-size: 42px;
+    line-height: 46px;
+    letter-spacing: -1.8px;
+  }
+
+  .left {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .endAt {
+    flex-basis: auto;
+    margin: 0 0 0 auto;
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .endPhase {
+    display: none;
+  }
+
+  .status,
+  .empty {
+    margin-top: 0;
+    gap: 4px;
+  }
+
+  .panel[data-active] .status {
+    margin-top: 10px;
+  }
+
+  .emptyTitle {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .emptyBody {
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  .segments {
+    margin-top: 14px;
+  }
+
+  .segment {
+    gap: 6px;
+  }
+
+  .segmentName {
+    font-size: 12px;
+  }
+
+  .alert,
+  .unregister {
+    margin-top: 14px;
+    font-size: 15px;
+  }
 }
