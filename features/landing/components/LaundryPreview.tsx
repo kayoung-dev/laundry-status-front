@@ -1,8 +1,8 @@
 "use client";
 
 import Icon from "@/components/ui/Icon";
+import motion from "@/styles/motion.module.css";
 import { useClock } from "../hooks/useClock";
-import motion from "../styles/motion.module.css";
 import styles from "./LaundryPreview.module.css";
 import MachineDrum, { type DrumState } from "./MachineDrum";
 import StatusPill, { type PillTone } from "./StatusPill";

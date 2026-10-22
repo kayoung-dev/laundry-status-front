@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { DEFAULT_HALL, HALLS } from "../constants";
+import { DEFAULT_HALL, HALLS } from "@/constants/navigation";
 
 const STORAGE_KEY = "washon.hall";
 const listeners = new Set<() => void>();

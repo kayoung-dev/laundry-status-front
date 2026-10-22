@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Icon from "@/components/ui/Icon";
-import { DEFAULT_ROOM_PATH } from "../constants";
+import { DEFAULT_ROOM_PATH } from "@/constants/navigation";
 import section from "../styles/section.module.css";
 import BubbleField, { type Bubble } from "./BubbleField";
 import styles from "./CtaSection.module.css";

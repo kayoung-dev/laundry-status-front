@@ -2,15 +2,15 @@
 
 import { useCallback, useRef, useState } from "react";
 import Icon from "@/components/ui/Icon";
-import { HALLS } from "../constants";
-import { useDismiss } from "../hooks/useDismiss";
-import { selectHall, useSelectedHall } from "../hooks/useSelectedHall";
-import motion from "../styles/motion.module.css";
-import tab from "../styles/tab.module.css";
+import { HALLS } from "@/constants/navigation";
+import { useDismiss } from "@/hooks/useDismiss";
+import { selectHall, useSelectedHall } from "@/hooks/useSelectedHall";
+import motion from "@/styles/motion.module.css";
+import tab from "./tab.module.css";
 import styles from "./HallPicker.module.css";
 
 /** Header tab that opens the residence hall list (4 columns on desktop, a list on phones). */
-export default function HallPicker() {
+export default function HallPicker({ current = false }: { current?: boolean }) {
   const hall = useSelectedHall();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -22,6 +22,7 @@ export default function HallPicker() {
       <button
         type="button"
         className={tab.tab}
+        aria-current={current ? "page" : undefined}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label={`생활관 세탁실, 현재 ${hall} 세탁실`}

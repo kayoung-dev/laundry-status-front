@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FOOTER_NAV, OPERATOR_INFO } from "../constants";
+import { FOOTER_NAV, OPERATOR_INFO } from "@/constants/navigation";
 import styles from "./SiteFooter.module.css";
 import WashOnLogo from "./WashOnLogo";
 
