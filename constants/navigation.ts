@@ -12,10 +12,15 @@ export const DEFAULT_ROOM = {
 export const DEFAULT_ROOM_PATH = `/room/${DEFAULT_ROOM.id}`;
 
 // Residence halls in the header picker. Static until the backend lists rooms
-// per hall; picking one only changes the label, every link still goes to DEFAULT_ROOM.
+// per hall; picking one changes the label and opens hallRoomPath(hall).
 export const HALLS = ["비전관", "은혜관", "하용조관", "벧엘관", "로뎀관", "국제관", "갈대상자관"];
 
 export const DEFAULT_HALL = HALLS[0];
+
+/** Room page of a hall. Every hall shares DEFAULT_ROOM until the backend maps halls to rooms. */
+export function hallRoomPath(_hall: string): string {
+  return DEFAULT_ROOM_PATH;
+}
 
 export type NavId = "room" | "my" | "location";
 
