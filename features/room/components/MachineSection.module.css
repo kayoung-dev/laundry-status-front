@@ -10,16 +10,68 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px 24px;
+  gap: 12px 16px;
 }
 
 .title {
+  flex: 1 1 auto;
   margin: 0;
   font-size: 22px;
   line-height: 30px;
   font-weight: 700;
   letter-spacing: -0.5px;
+}
+
+.floor {
+  display: flex;
+  align-items: center;
+}
+
+.selectWrap {
+  position: relative;
+  display: flex;
+}
+
+.select {
+  box-sizing: border-box;
+  min-width: 140px;
+  height: 38px;
+  padding: 0 40px 0 14px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--background-100);
+  box-shadow: 0 0 0 1px var(--wash-line-strong);
+  color: var(--gray-1000);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  appearance: none;
+  cursor: pointer;
+  transition: box-shadow 150ms ease-in-out;
+}
+
+.select:hover {
+  box-shadow: 0 0 0 1px #0064e247;
+}
+
+.select:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--blue-700);
+}
+
+.selectChevron {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-900);
+  pointer-events: none;
+}
+
+.divider {
+  width: 1px;
+  height: 20px;
+  background: var(--wash-line-strong);
 }
 
 .filter {
@@ -95,11 +147,26 @@
     gap: 14px;
   }
 
+  /* Title and floor on one row, the type filter full width under them. */
   .head {
     padding-bottom: 14px;
-    flex-direction: column;
-    align-items: stretch;
     gap: 12px;
+  }
+
+  .select {
+    width: 112px;
+    min-width: 0;
+    height: 44px;
+    padding: 0 34px 0 14px;
+    border-radius: 12px;
+  }
+
+  .selectChevron {
+    right: 12px;
+  }
+
+  .divider {
+    display: none;
   }
 
   .title {
@@ -108,6 +175,7 @@
   }
 
   .filter {
+    flex-basis: 100%;
     border-radius: 12px;
     display: grid;
     grid-auto-flow: column;

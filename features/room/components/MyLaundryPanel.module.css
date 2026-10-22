@@ -91,6 +91,7 @@
   font-size: 14px;
   line-height: 21px;
   color: var(--gray-900);
+  word-break: keep-all;
 }
 
 .segments {
