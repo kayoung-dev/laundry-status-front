@@ -1,4 +1,4 @@
-import motion from "../styles/motion.module.css";
+import motion from "@/styles/motion.module.css";
 import styles from "./MachineDrum.module.css";
 
 /** idle: still glass · running: slow gray swirl · mine: fast blue swirl. */

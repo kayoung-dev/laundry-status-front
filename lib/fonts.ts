@@ -10,4 +10,4 @@ export const notoSansKr = Noto_Sans_KR({
   preload: false,
 });
 
-export const landingFontVariables = `${geist.variable} ${geistMono.variable} ${notoSansKr.variable}`;
+export const siteFontVariables = `${geist.variable} ${geistMono.variable} ${notoSansKr.variable}`;

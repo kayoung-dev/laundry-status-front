@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Icon from "@/components/ui/Icon";
-import { DEFAULT_ROOM, DEFAULT_ROOM_PATH, HERO_POINTS } from "../constants";
-import motion from "../styles/motion.module.css";
+import { DEFAULT_ROOM, DEFAULT_ROOM_PATH } from "@/constants/navigation";
+import motion from "@/styles/motion.module.css";
+import { HERO_POINTS } from "../constants";
 import BubbleField, { type Bubble } from "./BubbleField";
 import styles from "./HeroSection.module.css";
 import LaundryPreview from "./LaundryPreview";

@@ -18,3 +18,25 @@ export function getDeviceId(): string {
     return crypto.randomUUID();
   }
 }
+
+/** JSON value from localStorage, or `fallback` when missing, unreadable or blocked. */
+export function readStored<T>(key: string, fallback: T): T {
+  try {
+    const raw = window.localStorage.getItem(key);
+    return raw == null ? fallback : (JSON.parse(raw) as T);
+  } catch {
+    return fallback;
+  }
+}
+
+export function writeStored(key: string, value: unknown) {
+  try {
+    if (value == null) {
+      window.localStorage.removeItem(key);
+    } else {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    }
+  } catch {
+    // Storage blocked: the value still lives in React state for this visit.
+  }
+}

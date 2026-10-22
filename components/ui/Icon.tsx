@@ -36,6 +36,17 @@ const ICONS = {
       </>
     ),
   },
+  "grid-solid": {
+    viewBox: "0 0 20 20",
+    body: (
+      <>
+        <rect x="3" y="3" width="6" height="6" rx="1.5" fill="currentColor" />
+        <rect x="11" y="3" width="6" height="6" rx="1.5" fill="currentColor" />
+        <rect x="3" y="11" width="6" height="6" rx="1.5" fill="currentColor" />
+        <rect x="11" y="11" width="6" height="6" rx="1.5" fill="currentColor" />
+      </>
+    ),
+  },
   "grid-accent": {
     viewBox: "0 0 20 20",
     body: (
@@ -73,6 +84,35 @@ const ICONS = {
         <rect x="3" y="2" width="14" height="16" rx="2.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
         <path d="M3 6h14" stroke="currentColor" strokeWidth="1.5" />
         <circle cx="10" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      </>
+    ),
+  },
+  "chevron-right": { viewBox: "0 0 16 16", body: <path d="M6 3.5L10.5 8 6 12.5" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" /> },
+  "bell-solid": { viewBox: "0 0 16 16", body: <path d="M8 1.8a4.2 4.2 0 0 0-4.2 4.2v2.6L2.6 11h10.8l-1.2-2.4V6A4.2 4.2 0 0 0 8 1.8zM6.3 13a1.8 1.8 0 0 0 3.4 0" stroke="currentColor" strokeWidth="1.4" fill="currentColor" strokeLinejoin="round" /> },
+  alert: {
+    viewBox: "0 0 16 16",
+    body: (
+      <>
+        <path d="M8 4.5v4.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <circle cx="8" cy="11.3" r="1.1" fill="currentColor" />
+      </>
+    ),
+  },
+  "check-circle": {
+    viewBox: "0 0 24 24",
+    body: (
+      <>
+        <circle cx="12" cy="12" r="10" fill="currentColor" />
+        <path d="M7.5 12.5l3 3 6-6.5" stroke="#ffffff" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      </>
+    ),
+  },
+  "clock-circle": {
+    viewBox: "0 0 24 24",
+    body: (
+      <>
+        <circle cx="12" cy="12" r="10" fill="currentColor" />
+        <path d="M12 7v5.2l3.4 2" stroke="#ffffff" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
       </>
     ),
   },

@@ -1,0 +1,74 @@
+.layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 24px 72px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.primary {
+  flex: 999 1 620px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.secondary {
+  flex: 1 1 320px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.note {
+  margin: 0;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--gray-900);
+  word-break: keep-all;
+}
+
+@media (max-width: 767px) {
+  /* One column; the side column's 내 세탁 moves right under the summary. */
+  .layout {
+    padding: 4px 16px 32px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .primary,
+  .secondary {
+    display: contents;
+  }
+
+  .verdictSlot {
+    order: 1;
+  }
+
+  .mineSlot {
+    order: 2;
+  }
+
+  .machinesSlot {
+    order: 3;
+    margin-top: 14px;
+  }
+
+  .note {
+    order: 4;
+    font-size: 12px;
+    line-height: 19px;
+  }
+
+  .locationSlot {
+    order: 5;
+    margin-top: 6px;
+  }
+}

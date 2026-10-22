@@ -2,9 +2,9 @@
 
 import { useCallback, useRef, useState } from "react";
 import Icon from "@/components/ui/Icon";
-import { useDismiss } from "../hooks/useDismiss";
-import { useSelectedHall } from "../hooks/useSelectedHall";
-import motion from "../styles/motion.module.css";
+import { useDismiss } from "@/hooks/useDismiss";
+import { useSelectedHall } from "@/hooks/useSelectedHall";
+import motion from "@/styles/motion.module.css";
 import styles from "./ProfileMenu.module.css";
 
 const MENU_ITEMS = ["내 정보", "알림 설정", "내 제보 내역"];

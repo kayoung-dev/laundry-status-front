@@ -1,45 +1,334 @@
+/*
+ * Grid areas so the phone layout can move details and actions under the dial.
+ * The 1fr rows above and below center the text column against the dial.
+ */
 .card {
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-lg);
-  padding: 1rem;
+  box-sizing: border-box;
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: var(--background-100);
+  box-shadow: 0 0 0 1px var(--wash-line);
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr) 168px;
+  grid-template-rows: 1fr auto auto auto 1fr auto;
+  grid-template-areas:
+    "dial .       actions"
+    "dial head    actions"
+    "dial title   actions"
+    "dial details actions"
+    "dial .       actions"
+    "report report report";
+  column-gap: 28px;
+  scroll-margin: 96px;
+  --tone-solid: var(--blue-700);
+  --tone-soft: var(--blue-100);
+  --tone-text: var(--blue-900);
+  transition: box-shadow 150ms ease-in-out;
 }
 
-.card[data-state="available"] {
-  border-color: var(--state-available);
-  background: var(--state-available-bg);
+.card[data-tone="free"] {
+  --tone-solid: var(--green-700);
+  --tone-soft: var(--green-100);
+  --tone-text: var(--green-900);
 }
 
-.card[data-state="in_use"] {
-  border-color: var(--state-in-use);
-  background: var(--state-in-use-bg);
+.card[data-tone="soon"] {
+  --tone-solid: var(--amber-700);
+  --tone-soft: var(--amber-100);
+  --tone-text: var(--amber-900);
 }
 
-.card[data-state="error"] {
-  border-color: var(--state-error);
-  background: var(--state-error-bg);
+.card[data-tone="off"] {
+  background: var(--wash-tint-25);
+  --tone-solid: var(--red-900);
+  --tone-soft: var(--red-100);
+  --tone-text: var(--red-900);
 }
 
-.card[data-state="unknown"],
-.card[data-state="maintenance"] {
-  border-color: var(--state-neutral);
-  background: var(--state-neutral-bg);
+.card[data-tone="unknown"] {
+  --tone-solid: var(--gray-700);
+  --tone-soft: #f5f5f5;
+  --tone-text: var(--gray-900);
 }
 
-/* P2-001: applied to the machine matched by the ?machine= query param
-   (per-machine QR deep link), on top of whichever [data-state] border/bg
-   above already applies. */
-.cardHighlighted {
-  outline: 3px solid var(--color-highlight);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px var(--color-highlight-ring);
+.card[data-mine] {
+  box-shadow: 0 0 0 2px var(--blue-700), 0 16px 32px -24px #0064e299;
 }
 
-.stateLabel {
+.card[data-highlighted] {
+  box-shadow: 0 0 0 2px var(--gray-1000), 0 16px 32px -24px #00000066;
+}
+
+.dial {
+  grid-area: dial;
+  align-self: center;
+}
+
+.head {
+  grid-area: head;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.badge {
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 9999px;
+  background: var(--tone-soft);
+  color: var(--tone-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
   font-weight: 600;
 }
 
+.badgeDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--tone-solid);
+}
+
+.label {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--gray-1000);
+}
+
+.mineTag {
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 9999px;
+  background: var(--blue-700);
+  color: #ffffff;
+  font-size: 11px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.titleRow {
+  grid-area: title;
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.title {
+  margin: 0;
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  color: var(--gray-1000);
+}
+
+.sub {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gray-900);
+  font-variant-numeric: tabular-nums;
+}
+
+.card[data-tone="off"] .title,
+.card[data-tone="off"] .label,
+.card[data-tone="unknown"] .title {
+  color: var(--gray-900);
+}
+
+.details {
+  grid-area: details;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.bar {
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--wash-track);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--tone-solid);
+}
+
+.meta {
+  margin: 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gray-900);
+  font-variant-numeric: tabular-nums;
+}
+
+.actions {
+  grid-area: actions;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.secondary,
+.ghost {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 150ms ease-in-out, box-shadow 150ms ease-in-out, color 150ms ease-in-out;
+}
+
+.secondary {
+  height: 40px;
+  border-radius: 8px;
+  background: var(--background-100);
+  box-shadow: 0 0 0 1px var(--gray-alpha-200);
+  color: var(--gray-1000);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.secondary:hover {
+  background: #f2f7fd;
+}
+
+.secondary[aria-pressed="true"] {
+  background: var(--blue-100);
+  box-shadow: 0 0 0 1px #0064e233;
+  color: var(--blue-900);
+}
+
+.ghost {
+  height: 36px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--gray-900);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ghost:hover,
+.ghost[aria-expanded="true"] {
+  background: var(--gray-100);
+}
+
+.report {
+  grid-area: report;
+  margin-top: 16px;
+  padding-top: 16px;
+  box-shadow: inset 0 1px 0 var(--wash-line);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .reportAck {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
+  margin: 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gray-900);
+}
+
+@media (max-width: 767px) {
+  /* Dial beside the name and title; steps, meta and buttons span the card below. */
+  .card {
+    padding: 16px;
+    grid-template-columns: 92px minmax(0, 1fr);
+    grid-template-rows: 1fr auto auto 1fr auto auto auto;
+    grid-template-areas:
+      "dial    ."
+      "dial    head"
+      "dial    title"
+      "dial    ."
+      "details details"
+      "actions actions"
+      "report  report";
+    column-gap: 14px;
+  }
+
+  .head {
+    gap: 6px;
+  }
+
+  .label {
+    order: 3;
+    flex-basis: 100%;
+    font-size: 14px;
+  }
+
+  .badge {
+    height: 22px;
+    padding: 0 8px;
+    gap: 5px;
+    font-size: 11px;
+  }
+
+  .badgeDot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .mineTag {
+    padding: 0 7px;
+  }
+
+  .titleRow {
+    margin-top: 6px;
+    gap: 6px;
+  }
+
+  .title {
+    font-size: 19px;
+    line-height: 26px;
+    letter-spacing: -0.5px;
+  }
+
+  .sub {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .details {
+    margin-top: 14px;
+    gap: 10px;
+  }
+
+  .meta {
+    font-size: 12px;
+  }
+
+  .actions {
+    margin-top: 14px;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .secondary {
+    flex: 1;
+    height: 44px;
+    border-radius: 10px;
+  }
+
+  .ghost {
+    height: 44px;
+    padding: 0 12px;
+    border-radius: 10px;
+  }
+
+  .report {
+    margin-top: 14px;
+    padding-top: 14px;
+  }
 }

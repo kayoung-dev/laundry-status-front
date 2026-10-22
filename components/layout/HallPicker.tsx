@@ -1,17 +1,20 @@
 "use client";
 
+import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 import Icon from "@/components/ui/Icon";
-import { HALLS } from "../constants";
-import { useDismiss } from "../hooks/useDismiss";
-import { selectHall, useSelectedHall } from "../hooks/useSelectedHall";
-import motion from "../styles/motion.module.css";
-import tab from "../styles/tab.module.css";
+import { HALLS, hallRoomPath } from "@/constants/navigation";
+import { useDismiss } from "@/hooks/useDismiss";
+import { selectHall, useSelectedHall } from "@/hooks/useSelectedHall";
+import motion from "@/styles/motion.module.css";
+import tab from "./tab.module.css";
 import styles from "./HallPicker.module.css";
 
-/** Header tab that opens the residence hall list (4 columns on desktop, a list on phones). */
-export default function HallPicker() {
+/** Header tab that opens the residence hall list (4 columns on desktop, a list on phones); a pick opens that hall's room page. */
+export default function HallPicker({ current = false }: { current?: boolean }) {
   const hall = useSelectedHall();
+  const router = useRouter();
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const close = useCallback(() => setOpen(false), []);
@@ -22,6 +25,7 @@ export default function HallPicker() {
       <button
         type="button"
         className={tab.tab}
+        aria-current={current ? "page" : undefined}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label={`생활관 세탁실, 현재 ${hall} 세탁실`}
@@ -47,6 +51,10 @@ export default function HallPicker() {
                 onClick={() => {
                   selectHall(name);
                   setOpen(false);
+                  const path = hallRoomPath(name);
+                  if (pathname !== path) {
+                    router.push(path);
+                  }
                 }}
               >
                 {name}

@@ -1,5 +1,5 @@
 import Icon from "@/components/ui/Icon";
-import motion from "../styles/motion.module.css";
+import motion from "@/styles/motion.module.css";
 import styles from "./NotifyIllustration.module.css";
 
 /** Step 3: the "done" notification for my machine. */
