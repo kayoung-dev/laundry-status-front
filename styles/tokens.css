@@ -52,8 +52,11 @@
   --amber-100: #fff6e1;
   --amber-700: #ffb200;
   --amber-900: #a64f00;
+  --red-100: #ffeef0;
+  --red-900: #d60020;
 
   /* WashOn brand tints on top of Geist blue */
+  --wash-tint-25: #fafcff;
   --wash-tint-50: #f7fbff;
   --wash-tint-100: #eef6ff;
   --wash-tint-200: #dcebfd;
@@ -64,6 +67,9 @@
   --wash-navy-muted: #a9bdd6;
   --wash-line: #0064e214;
   --wash-line-strong: #0064e21f;
+  --wash-track: #e6eef8;
+  --wash-segment: #eef3f9;
+  --wash-step-ring: #c9d6e6;
 
   --font-mono: var(--font-geist-mono), Menlo, monospace;
 }
