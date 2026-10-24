@@ -58,9 +58,8 @@ export default function LoginForm() {
   return (
     <form className={styles.form} noValidate onSubmit={onSubmit}>
       <h1 className={styles.title}>로그인</h1>
-      <p className={styles.subtitle}>학교 메일로 로그인해요</p>
 
-      <label className={`${field.label} ${styles.label}`} htmlFor="login-email">
+      <label className={field.label} htmlFor="login-email">
         학교 이메일
       </label>
       <input
@@ -79,25 +78,23 @@ export default function LoginForm() {
         aria-describedby="login-error"
       />
 
-      <label className={`${field.label} ${styles.label} ${styles.passwordLabel}`} htmlFor="login-password">
+      <label className={`${field.label} ${field.gap}`} htmlFor="login-password">
         비밀번호
       </label>
-      <div className={styles.passwordField}>
-        <PasswordInput
-          id="login-password"
-          value={password}
-          onChange={(value) => {
-            setPassword(value);
-            setError("");
-          }}
-          autoComplete="current-password"
-          placeholder="비밀번호"
-          visible={showPassword}
-          onToggleVisible={() => setShowPassword((value) => !value)}
-          invalid={invalid}
-          describedBy="login-error"
-        />
-      </div>
+      <PasswordInput
+        id="login-password"
+        value={password}
+        onChange={(value) => {
+          setPassword(value);
+          setError("");
+        }}
+        autoComplete="current-password"
+        placeholder="비밀번호"
+        visible={showPassword}
+        onToggleVisible={() => setShowPassword((value) => !value)}
+        invalid={invalid}
+        describedBy="login-error"
+      />
 
       <FormError id="login-error" message={error} attempt={attempt} />
 

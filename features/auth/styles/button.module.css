@@ -69,8 +69,8 @@
 }
 
 .social {
-  height: 50px;
-  border-radius: 12px;
+  height: 52px;
+  border-radius: 14px;
   background: var(--background-100);
   box-shadow: 0 0 0 1px var(--wash-line-strong);
   color: var(--gray-1000);
@@ -167,6 +167,20 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* Phones: larger tap targets to match the 52px fields. */
+@media (max-width: 767px) {
+  .primary,
+  .text,
+  .social {
+    height: 54px;
+    font-size: 16px;
+  }
+
+  .inline {
+    height: 40px;
   }
 }
 
