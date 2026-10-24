@@ -1,0 +1,39 @@
+/* Plan drawings: an SVG in plan units with HTML labels and buttons placed on it in %. */
+
+/* The area a plan may fill; sized as a container so the plan can keep its ratio. */
+.viewport {
+  position: absolute;
+  inset: 60px 24px 72px;
+  container-type: size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Largest box with the plan's ratio (--ratio, width / height) that fits the viewport. */
+.plan {
+  position: relative;
+  width: min(100cqw, 100cqh * var(--ratio));
+  aspect-ratio: var(--ratio);
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.mark {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .viewport {
+    inset: 44px 12px 32px;
+  }
+}

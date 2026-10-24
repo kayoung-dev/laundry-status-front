@@ -11,6 +11,8 @@ export const DEFAULT_ROOM = {
 
 export const DEFAULT_ROOM_PATH = `/room/${DEFAULT_ROOM.id}`;
 
+export const LOCATION_PATH = "/location";
+
 // Residence halls in the header picker. Static until the backend lists rooms
 // per hall; picking one changes the label and opens hallRoomPath(hall).
 export const HALLS = ["비전관", "은혜관", "하용조관", "벧엘관", "로뎀관", "국제관", "갈대상자관"];
@@ -24,7 +26,7 @@ export function hallRoomPath(_hall: string): string {
 
 export type NavId = "room" | "my" | "location";
 
-// "#" = the page does not exist yet (내 세탁, 세탁실 위치 need student login / floor maps).
+// "#" = the page does not exist yet (내 세탁 needs student login).
 export interface NavItem {
   id: NavId;
   label: string;
@@ -40,7 +42,7 @@ export const ROOM_NAV_ITEM: NavItem = { id: "room", label: "생활관 세탁실"
 
 export const PAGE_NAV_ITEMS: NavItem[] = [
   { id: "my", label: "내 세탁", href: "#", icon: "basket" },
-  { id: "location", label: "세탁실 위치", href: "#", icon: "pin", isNew: true },
+  { id: "location", label: "세탁실 위치", href: LOCATION_PATH, icon: "pin", isNew: true },
 ];
 
 export const NAV_ITEMS: NavItem[] = [ROOM_NAV_ITEM, ...PAGE_NAV_ITEMS];

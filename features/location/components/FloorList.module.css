@@ -1,0 +1,82 @@
+.panel {
+  padding: 12px;
+  border-radius: 16px;
+  background: var(--background-100);
+  box-shadow: 0 0 0 1px var(--wash-line);
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 4px 8px 8px;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 700;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.row {
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: var(--gray-900);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.row[data-laundry] {
+  background: var(--wash-tint-100);
+  color: var(--blue-900);
+  transition: background 150ms ease-in-out;
+}
+
+.row[data-laundry]:hover {
+  background: var(--wash-tint-200);
+}
+
+.floor {
+  width: 34px;
+  flex: none;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.name {
+  flex: 1;
+}
+
+.row[data-laundry] .name {
+  font-weight: 700;
+}
+
+.free {
+  font-size: 12px;
+  color: var(--green-900);
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .panel {
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .title {
+    margin: 4px 0 6px;
+  }
+
+  .row {
+    height: 40px;
+  }
+}
