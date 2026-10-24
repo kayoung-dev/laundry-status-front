@@ -91,3 +91,20 @@
     transform: none;
   }
 }
+
+/* Phones: bars only; the header shows "n/4". */
+@media (max-width: 767px) {
+  .steps {
+    margin: 0 20px;
+    gap: 4px;
+  }
+
+  .label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}

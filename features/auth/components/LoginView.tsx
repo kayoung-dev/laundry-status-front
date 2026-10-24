@@ -4,9 +4,10 @@ import button from "@/features/auth/styles/button.module.css";
 import AuthFrame from "./AuthFrame";
 import CampusPanel from "./CampusPanel";
 import LoginForm from "./LoginForm";
+import MobileLoginHero from "./MobileLoginHero";
 import styles from "./LoginView.module.css";
 
-/** /login — campus photo panel beside the login form. */
+/** /login — campus photo panel beside the login form; on phones a photo strip above it. */
 export default function LoginView() {
   return (
     <AuthFrame
@@ -18,6 +19,7 @@ export default function LoginView() {
       }
     >
       <div className={styles.split}>
+        <MobileLoginHero />
         <CampusPanel />
         <div className={styles.formSide}>
           <LoginForm />

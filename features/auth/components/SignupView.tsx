@@ -12,6 +12,7 @@ import AccountStep from "./AccountStep";
 import AuthFrame from "./AuthFrame";
 import DoneStep from "./DoneStep";
 import DormStep from "./DormStep";
+import MobileSignupHeader from "./MobileSignupHeader";
 import SignupProgress from "./SignupProgress";
 import TermsDialog from "./TermsDialog";
 import TermsStep from "./TermsStep";
@@ -69,6 +70,7 @@ export default function SignupView() {
     >
       <div className={styles.stage}>
         <div className={styles.card}>
+          <MobileSignupHeader step={step} onPrev={step === 2 || step === 3 ? () => go(step - 1) : undefined} />
           <SignupProgress step={step} />
           {step === 1 && (
             <TermsStep agreements={agreements} onChange={setAgreements} onOpenTerm={setOpenTerm} onNext={() => go(2)} />

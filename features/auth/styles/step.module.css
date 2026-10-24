@@ -29,3 +29,20 @@
     animation: none;
   }
 }
+
+@media (max-width: 767px) {
+  .step {
+    padding: 28px 20px 0;
+  }
+
+  .title {
+    margin-bottom: 24px;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.6px;
+  }
+
+  .mobileBreak {
+    display: inline;
+  }
+}

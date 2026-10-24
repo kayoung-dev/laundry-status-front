@@ -162,3 +162,66 @@
     animation: none;
   }
 }
+
+@media (max-width: 767px) {
+  .done {
+    padding: 120px 20px 28px;
+    justify-content: flex-start;
+  }
+
+  .title {
+    font-size: 30px;
+    line-height: 40px;
+    letter-spacing: -0.9px;
+  }
+
+  .summary {
+    margin-top: 10px;
+    line-height: 23px;
+  }
+
+  .mobileBreak {
+    display: inline;
+  }
+
+  .notify {
+    margin-top: 40px;
+    padding: 18px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .notifyInfo {
+    gap: 12px;
+  }
+
+  .bell {
+    width: 42px;
+    height: 42px;
+  }
+
+  .notifyActions {
+    gap: 8px;
+  }
+
+  .later,
+  .enable {
+    height: 48px;
+    border-radius: 12px;
+    font-size: 15px;
+  }
+
+  .later {
+    padding: 0 16px;
+  }
+
+  .enable {
+    flex: 1;
+  }
+
+  .notifyOn {
+    height: 48px;
+    font-size: 15px;
+  }
+}

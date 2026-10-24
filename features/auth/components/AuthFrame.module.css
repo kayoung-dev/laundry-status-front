@@ -88,3 +88,11 @@
 .policy[data-strong] {
   font-weight: 600;
 }
+
+/* Phones: each screen draws its own top (photo strip or step header) and there is no footer. */
+@media (max-width: 767px) {
+  .header,
+  .footer {
+    display: none;
+  }
+}

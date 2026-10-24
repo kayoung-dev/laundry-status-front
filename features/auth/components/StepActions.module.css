@@ -35,3 +35,30 @@
     animation: none;
   }
 }
+
+/* Phones: a bar pinned to the bottom; going back is in the header. */
+@media (max-width: 767px) {
+  .actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    margin: auto -20px 0;
+    padding: 12px 20px 28px;
+    background: var(--background-100);
+    box-shadow: inset 0 1px 0 var(--wash-line);
+  }
+
+  .prev {
+    display: none;
+  }
+
+  .next {
+    height: 54px;
+    font-size: 16px;
+  }
+
+  .hint {
+    order: -1;
+    margin: 0 0 10px;
+  }
+}

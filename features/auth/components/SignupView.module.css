@@ -28,3 +28,21 @@
   display: flex;
   flex-direction: column;
 }
+
+/* Phones: the card becomes the whole screen. */
+@media (max-width: 767px) {
+  .stage {
+    padding: 0;
+    align-items: stretch;
+    background: var(--background-100);
+  }
+
+  .card {
+    max-width: none;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
