@@ -1,0 +1,30 @@
+.haveAccount {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gray-900);
+}
+
+.loginLink {
+  margin-left: 4px;
+}
+
+.stage {
+  flex: 1;
+  padding: 48px 24px 64px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.card {
+  width: 100%;
+  max-width: 560px;
+  min-height: 680px;
+  padding: 36px 40px 40px;
+  border-radius: 24px;
+  background: var(--background-100);
+  box-shadow: 0 0 0 1px var(--wash-line), 0 2px 2px #0000000a, 0 32px 64px -40px #0064e259;
+  display: flex;
+  flex-direction: column;
+}

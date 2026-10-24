@@ -1,0 +1,37 @@
+.actions {
+  margin-top: auto;
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.next {
+  flex: 1;
+}
+
+/* Below the button on the web, above it on phones. */
+.hint {
+  order: 1;
+  margin: 12px 0 0;
+  text-align: center;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gray-700);
+  animation: fade 220ms ease both;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hint {
+    animation: none;
+  }
+}

@@ -1,0 +1,21 @@
+.back {
+  height: 40px;
+  padding: 0 4px;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.split {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.formSide {
+  flex: 1 1 480px;
+  min-width: 0;
+  padding: 48px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

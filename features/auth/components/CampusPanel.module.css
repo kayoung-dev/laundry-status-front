@@ -1,0 +1,191 @@
+.panel {
+  flex: 1 1 560px;
+  min-width: 0;
+  padding: 32px 0 32px 32px;
+  display: flex;
+}
+
+/* Colors per time of day; data-tone is set from the visitor's clock. */
+.frame {
+  --panel: linear-gradient(180deg, #eef6ff 0%, #e8f0f8 55%, #dfe8f1 100%);
+  --wash: linear-gradient(180deg, #ffffff00 55%, #0b254529 100%);
+  --blend: normal;
+  --filter: saturate(1.08) contrast(1.05);
+  --ink: var(--gray-1000);
+  --accent: var(--blue-900);
+  --eyebrow: var(--blue-900);
+  --stars: 0;
+
+  position: relative;
+  flex: 1;
+  min-height: 640px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--panel);
+  box-shadow: 0 0 0 1px var(--wash-line);
+}
+
+.frame[data-tone="morning"] {
+  --panel: linear-gradient(180deg, #fff3e6 0%, #f4f1f3 45%, #e6eef7 100%);
+  --wash: linear-gradient(180deg, #ffe4c8 0%, #f9ebe9 26%, #ffffff00 58%);
+  --blend: multiply;
+  --filter: saturate(1.06) contrast(1.04) brightness(1.04);
+  --eyebrow: #c2620a;
+}
+
+.frame[data-tone="evening"] {
+  --panel: linear-gradient(180deg, #ffe2cf 0%, #f6dfe4 40%, #e3e1ef 100%);
+  --wash: linear-gradient(180deg, #ffd2bb 0%, #f6d7da 28%, #ffffff00 58%, #6b3f7a1f 100%);
+  --blend: multiply;
+  --filter: saturate(1.12) contrast(1.06) sepia(0.12);
+  --ink: #2a1f2d;
+  --eyebrow: #c2410c;
+}
+
+.frame[data-tone="night"] {
+  --panel: linear-gradient(180deg, #0f1c33 0%, #172a4a 55%, #1d3557 100%);
+  --wash: linear-gradient(180deg, #0b254573 0%, #0b2545a6 100%);
+  --blend: multiply;
+  --filter: brightness(0.62) saturate(0.75) contrast(1.08) hue-rotate(8deg);
+  --ink: #f5f8fc;
+  --accent: #7cb8ff;
+  --eyebrow: #9cc6f5;
+  --stars: 1;
+}
+
+.stars {
+  position: absolute;
+  inset: 0 0 40% 0;
+  opacity: var(--stars);
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.4px 1.4px at 12% 18%, #ffffffd9 50%, transparent 51%),
+    radial-gradient(1px 1px at 28% 42%, #ffffffb3 50%, transparent 51%),
+    radial-gradient(1.6px 1.6px at 46% 12%, #ffffffe6 50%, transparent 51%),
+    radial-gradient(1px 1px at 63% 30%, #ffffff99 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 78% 16%, #ffffffcc 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 48%, #ffffff8c 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 36% 64%, #ffffff80 50%, transparent 51%),
+    radial-gradient(1px 1px at 70% 58%, #ffffff73 50%, transparent 51%);
+  transition: opacity 800ms ease;
+  animation: twinkle 5s ease-in-out infinite;
+}
+
+.copy {
+  position: relative;
+  z-index: 2;
+  padding: 48px 64px 0;
+  animation: rise 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.eyebrow {
+  margin: 0 0 16px;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--eyebrow);
+}
+
+.headline {
+  margin: 0;
+  font-size: 52px;
+  line-height: 62px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  color: var(--ink);
+  transition: color 600ms ease;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.photo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 74%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 34%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 34%);
+}
+
+.image {
+  object-fit: cover;
+  object-position: 50% 88%;
+  filter: var(--filter);
+  transform-origin: 50% 60%;
+  transition: filter 800ms ease;
+  animation: kenBurns 26s ease-in-out infinite alternate;
+}
+
+.wash {
+  position: absolute;
+  inset: 0;
+  background: var(--wash);
+  mix-blend-mode: var(--blend);
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #eef6ff00 55%, #0b254529 100%);
+}
+
+.bubbles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bubble {
+  position: absolute;
+  bottom: 18%;
+  border-radius: 9999px;
+  opacity: 0;
+  will-change: transform, opacity;
+  background: radial-gradient(circle at 30% 26%, #ffffff 0 3%, #ffffffcc 7%, #ffffff59 22%, #e8f2ff33 48%, #cfe3fb4d 78%, #b9d7f873 100%);
+  -webkit-backdrop-filter: blur(6px) saturate(1.2);
+  backdrop-filter: blur(6px) saturate(1.2);
+  box-shadow: inset 0 -14px 28px #8fbdf333, inset 0 10px 20px #ffffff40, 0 24px 48px -24px #0064e259;
+  animation: drift 22s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes kenBurns {
+  from { transform: scale(1.02); }
+  to { transform: scale(1.1) translate(-1.2%, -1%); }
+}
+
+@keyframes drift {
+  0% { transform: translate3d(0, 0, 0) scale(0.82); opacity: 0; }
+  12% { opacity: 1; }
+  50% { transform: translate3d(16px, -230px, 0) scale(0.95); }
+  88% { opacity: 0.85; }
+  100% { transform: translate3d(-8px, -470px, 0) scale(1.04); opacity: 0; }
+}
+
+@keyframes twinkle {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(0.55); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copy,
+  .image,
+  .stars {
+    animation: none;
+  }
+
+  .bubble {
+    animation: none;
+    opacity: 0.75;
+  }
+}

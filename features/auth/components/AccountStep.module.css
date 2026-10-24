@@ -1,0 +1,61 @@
+.email {
+  padding-right: 128px;
+}
+
+.sentIcon {
+  flex: none;
+  color: var(--green-700);
+}
+
+.codeInput {
+  padding-right: 80px;
+}
+
+.timer {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--blue-900);
+  font-variant-numeric: tabular-nums;
+}
+
+.timer[data-expired] {
+  color: #c7001e;
+}
+
+.confirm {
+  margin-top: 10px;
+}
+
+.rules {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+}
+
+.rule {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gray-700);
+  transition: color 200ms ease;
+}
+
+.ruleIcon {
+  flex: none;
+  color: #d5dbe3;
+  transition: color 200ms ease;
+}
+
+.rule[data-ok] {
+  color: var(--green-900);
+}
+
+.rule[data-ok] .ruleIcon {
+  color: var(--green-700);
+}

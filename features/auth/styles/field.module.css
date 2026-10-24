@@ -1,0 +1,140 @@
+/* Form fields shared by the login and sign-up screens. */
+.label {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+  color: var(--gray-1000);
+}
+
+.optional {
+  font-weight: 400;
+  color: var(--gray-700);
+}
+
+.gap {
+  margin-top: 20px;
+}
+
+.control {
+  position: relative;
+}
+
+.input,
+.select {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--background-100);
+  box-shadow: 0 0 0 1px var(--wash-line-strong);
+  font: inherit;
+  font-size: 15px;
+  color: var(--gray-1000);
+  outline: none;
+  transition: box-shadow 180ms ease, background 180ms ease;
+}
+
+.input::placeholder {
+  color: #9aa3ae;
+}
+
+.input:hover,
+.select:hover {
+  box-shadow: 0 0 0 1px #0064e247;
+}
+
+.input:focus,
+.select:focus-visible {
+  box-shadow: 0 0 0 1px var(--blue-700), 0 0 0 4px #0070f724;
+}
+
+.input:disabled,
+.select:disabled {
+  background: #f6f8fb;
+  color: var(--gray-700);
+  box-shadow: 0 0 0 1px #0000000d;
+  cursor: not-allowed;
+}
+
+.input[aria-invalid="true"] {
+  box-shadow: 0 0 0 1px #e5484d, 0 0 0 4px #e5484d1f;
+}
+
+.select {
+  padding-right: 42px;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.select[data-empty] {
+  color: var(--gray-700);
+}
+
+.select option {
+  color: var(--gray-1000);
+}
+
+.chevron {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  margin-top: -7px;
+  pointer-events: none;
+  color: var(--gray-900);
+}
+
+/* Text inside the right edge of an input: unit, countdown. */
+.suffix {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gray-700);
+  pointer-events: none;
+}
+
+.code {
+  font-family: var(--font-mono);
+  letter-spacing: 2px;
+}
+
+.code::placeholder {
+  font-family: var(--font-geist), var(--font-noto-kr), sans-serif;
+  letter-spacing: 0;
+}
+
+.hint {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gray-900);
+}
+
+.success {
+  composes: hint;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--green-900);
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
