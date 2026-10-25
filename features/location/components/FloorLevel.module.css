@@ -62,31 +62,6 @@
   background: var(--red-900);
 }
 
-.back {
-  position: absolute;
-  left: 16px;
-  top: 52px;
-  height: 32px;
-  padding: 0 12px;
-  border: 0;
-  border-radius: 9999px;
-  background: var(--background-100);
-  box-shadow: 0 0 0 1px var(--wash-line-strong);
-  color: var(--gray-1000);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 150ms ease-in-out;
-}
-
-.back:hover {
-  background: #f2f7fd;
-}
-
 .side {
   flex: 1 1 300px;
   max-width: 340px;
@@ -125,10 +100,6 @@
     padding: 0 10px;
     gap: 10px;
     font-size: 11px;
-  }
-
-  .back {
-    display: none;
   }
 
   .side {

@@ -7,14 +7,12 @@ interface SegmentedControlProps<T extends string> {
   options: { id: T; label: string; short?: string }[];
   value: T;
   onChange: (id: T) => void;
-  /** Stretch to the full width on phones. */
-  fill?: boolean;
 }
 
 /** Two or three mutually exclusive views ("3D 지도 / 목록", "펼치기 / 접기"). */
-export default function SegmentedControl<T extends string>({ label, options, value, onChange, fill }: SegmentedControlProps<T>) {
+export default function SegmentedControl<T extends string>({ label, options, value, onChange }: SegmentedControlProps<T>) {
   return (
-    <div role="tablist" aria-label={label} className={styles.group} data-fill={fill || undefined}>
+    <div role="tablist" aria-label={label} className={styles.group}>
       {options.map((o) => (
         <button
           key={o.id}

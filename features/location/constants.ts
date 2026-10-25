@@ -1,6 +1,6 @@
-import { STATE_LABEL, TYPE_LABEL } from "@/constants/machine-labels";
+import { STATE_LABEL } from "@/constants/machine-labels";
 import type { MachineState } from "@/types/machine";
-import type { KindFilter, MachineKind, MapView } from "./types";
+import type { KindFilter, MapView } from "./types";
 
 // The location map names states the way the design canvas does.
 export const LOCATION_STATE_LABEL: Record<MachineState, string> = {
@@ -11,8 +11,6 @@ export const LOCATION_STATE_LABEL: Record<MachineState, string> = {
 
 /** Order of the state groups in the machine list. */
 export const STATE_ORDER: MachineState[] = ["available", "in_use", "maintenance", "error", "unknown"];
-
-export const KIND_LABEL = TYPE_LABEL as Record<MachineKind, string>;
 
 export const VIEW_TABS: { id: MapView; label: string; short: string }[] = [
   { id: "3d", label: "3D 지도", short: "3D" },
@@ -28,11 +26,6 @@ export const KIND_FILTERS: { id: KindFilter; label: string }[] = [
 export const SPACING_TABS: { id: "open" | "closed"; label: string }[] = [
   { id: "open", label: "펼치기" },
   { id: "closed", label: "접기" },
-];
-
-export const FLOOR_TABS: { id: "floor" | "room"; label: string }[] = [
-  { id: "floor", label: "층 전체" },
-  { id: "room", label: "세탁실 확대" },
 ];
 
 /** Which side the camera looks from, per quarter turn ("북쪽에서 보는 중"). */
