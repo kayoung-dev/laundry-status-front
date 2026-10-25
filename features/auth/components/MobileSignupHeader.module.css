@@ -1,0 +1,39 @@
+.header {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .header {
+    height: 56px;
+    flex: none;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .back {
+    width: 44px;
+    height: 44px;
+  }
+
+  .title {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 600;
+  }
+
+  .count {
+    width: 44px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-900);
+  }
+
+  .current {
+    color: var(--blue-900);
+    font-weight: 600;
+  }
+}
