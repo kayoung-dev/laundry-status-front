@@ -54,8 +54,6 @@ export interface FloorPlan {
   /** From the elevator to the laundry room door. */
   route: PlanPoint[];
   routeSteps: string[];
-  /** Laundry room door, in room coordinates. */
-  roomDoor: PlanRect;
 }
 
 export interface Hall {

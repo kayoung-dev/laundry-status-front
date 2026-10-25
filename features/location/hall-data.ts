@@ -62,7 +62,6 @@ function basicPlan(laundries: Laundry[]): FloorPlan {
     ],
     route: [[2.5, 4.85], [doorX + 0.7, 4.85], [doorX + 0.7, room.d + 0.2]],
     routeSteps: ["엘리베이터에서 내려 복도로 나와요", "복도를 따라 오른쪽으로 가요", "왼쪽 벽 세탁실, 문은 오른쪽 끝이에요"],
-    roomDoor: { x: doorX - room.x, y: room.d - 0.05, w: 1.4, d: 0.1 },
   };
 }
 
@@ -105,7 +104,6 @@ const HYJ_PLAN: FloorPlan = {
   ],
   route: [[2.33, 10.8], [3.78, 10.8], [3.78, 4.6], [12.3, 4.6], [12.3, 3.35]],
   routeSteps: ["엘리베이터를 내려 출입구로 들어가요", "복도를 따라 오른쪽으로 가요", "왼쪽 벽 세탁실, 문은 오른쪽 끝이에요"],
-  roomDoor: { x: 3.9, y: 3.12, w: 1.4, d: 0.1 },
 };
 
 const HYJ_MACHINES: [MachineKind, number, MachineState, PlanRect][] = [

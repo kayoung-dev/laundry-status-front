@@ -160,10 +160,6 @@
     gap: 8px;
   }
 
-  .inner:has(> .actions [data-fill]) {
-    flex-wrap: wrap;
-  }
-
   .heading {
     flex: 1;
   }
@@ -208,9 +204,5 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .actions:has([data-fill]) {
-    flex: 1 1 100%;
   }
 }

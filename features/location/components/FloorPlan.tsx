@@ -10,11 +10,10 @@ interface FloorPlanProps {
   machines: LaundryMachine[];
   selectedId: string | null;
   showRoute: boolean;
-  onOpenRoom: () => void;
 }
 
 /** Whole floor seen from above: rooms, the laundry room with its machines, the way from the elevator. */
-export default function FloorPlan({ floorPlan, machines, selectedId, showRoute, onOpenRoom }: FloorPlanProps) {
+export default function FloorPlan({ floorPlan, machines, selectedId, showRoute }: FloorPlanProps) {
   const frame = frameAround(floorPlan.outline, 0.6);
   const room = floorPlan.laundry;
   const start = floorPlan.route[0];
@@ -46,7 +45,6 @@ export default function FloorPlan({ floorPlan, machines, selectedId, showRoute, 
             {l.text}
           </span>
         ))}
-        <button type="button" className={styles.zone} style={rectStyle(frame, room)} onClick={onOpenRoom} aria-label="세탁실 확대해서 기기 배치 보기" />
         {machines.map((m) => (
           <span
             key={m.id}
