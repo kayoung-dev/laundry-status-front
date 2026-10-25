@@ -1,0 +1,110 @@
+.steps {
+  list-style: none;
+  margin: 0 0 36px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.track {
+  height: 4px;
+  border-radius: 4px;
+  background: var(--wash-track);
+  overflow: hidden;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--blue-900);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+.step[data-status="done"] .fill {
+  transform: none;
+}
+
+.step[data-status="current"] .fill {
+  animation: fill 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.step[data-status="done"] .label {
+  color: var(--gray-900);
+}
+
+.step[data-status="current"] .label {
+  font-weight: 600;
+  color: var(--blue-900);
+}
+
+.check {
+  flex: none;
+  color: var(--blue-900);
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: #b5bdc7;
+}
+
+.step[data-status="current"] .num {
+  color: var(--blue-900);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+@keyframes fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step[data-status="current"] .fill {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* Phones: bars only; the header shows "n/4". */
+@media (max-width: 767px) {
+  .steps {
+    margin: 0 20px;
+    gap: 4px;
+  }
+
+  .label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}

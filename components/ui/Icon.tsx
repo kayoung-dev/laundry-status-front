@@ -116,6 +116,49 @@ const ICONS = {
       </>
     ),
   },
+  "check-badge": {
+    viewBox: "0 0 14 14",
+    body: (
+      <>
+        <circle cx="7" cy="7" r="7" fill="currentColor" />
+        <path d="M4.2 7.1l1.9 1.9 3.7-4" stroke="#ffffff" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      </>
+    ),
+  },
+  "alert-circle": {
+    viewBox: "0 0 16 16",
+    body: (
+      <>
+        <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.4" fill="none" />
+        <path d="M8 4.8v3.8M8 10.9v.3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      </>
+    ),
+  },
+  "arrow-left": { viewBox: "0 0 16 16", body: <path d="M13 8H3.5M7.5 3.5L3 8l4.5 4.5" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" /> },
+  "chevron-left": { viewBox: "0 0 16 16", body: <path d="M10 3.5L5.5 8l4.5 4.5" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" /> },
+  close: { viewBox: "0 0 16 16", body: <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /> },
+  eye: {
+    viewBox: "0 0 20 20",
+    body: (
+      <>
+        <path d="M1.8 10S5 4.2 10 4.2 18.2 10 18.2 10 15 15.8 10 15.8 1.8 10 1.8 10z" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round" />
+        <circle cx="10" cy="10" r="2.6" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      </>
+    ),
+  },
+  "eye-off": {
+    viewBox: "0 0 20 20",
+    body: (
+      <path
+        d="M3 3l14 14M8.2 4.4A8.6 8.6 0 0 1 10 4.2C15 4.2 18.2 10 18.2 10a14 14 0 0 1-2.6 3.3M5.2 6.2C3 7.8 1.8 10 1.8 10S5 15.8 10 15.8c1.3 0 2.5-.4 3.5-1"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    ),
+  },
 } as const;
 
 export type IconName = keyof typeof ICONS;

@@ -13,6 +13,9 @@ export const DEFAULT_ROOM_PATH = `/room/${DEFAULT_ROOM.id}`;
 
 export const LOCATION_PATH = "/location";
 
+export const LOGIN_PATH = "/login";
+export const SIGNUP_PATH = "/signup";
+
 // Residence halls in the header picker. Static until the backend lists rooms
 // per hall; picking one changes the label and opens hallRoomPath(hall).
 export const HALLS = ["비전관", "은혜관", "하용조관", "벧엘관", "로뎀관", "국제관", "갈대상자관"];

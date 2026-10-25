@@ -1,0 +1,32 @@
+.error {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--red-100);
+  color: #c7001e;
+  font-size: 13px;
+  line-height: 19px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  animation: shake 420ms ease both;
+}
+
+.icon {
+  flex: none;
+  margin-top: 1.5px;
+}
+
+@keyframes shake {
+  0%, 100% { transform: none; }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .error {
+    animation: none;
+  }
+}

@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useRef, useState } from "react";
 import Icon from "@/components/ui/Icon";
+import { LOGIN_PATH, SIGNUP_PATH } from "@/constants/navigation";
 import { useDismiss } from "@/hooks/useDismiss";
 import { useSelectedHall } from "@/hooks/useSelectedHall";
 import motion from "@/styles/motion.module.css";
@@ -10,8 +12,9 @@ import styles from "./ProfileMenu.module.css";
 const MENU_ITEMS = ["내 정보", "알림 설정", "내 제보 내역"];
 
 /**
- * Student profile dropdown. Student login does not exist yet, so the header
- * shows a guest and the items have no destination.
+ * Student profile dropdown. There is no student session yet, so the header
+ * always shows a guest with links to log in or sign up, and the other items
+ * have no destination.
  */
 export default function ProfileMenu() {
   const hall = useSelectedHall();
@@ -50,9 +53,12 @@ export default function ProfileMenu() {
             </button>
           ))}
           <span aria-hidden="true" className={styles.separator} />
-          <button type="button" role="menuitem" className={`${styles.item} ${styles.itemMuted}`}>
-            로그아웃
-          </button>
+          <Link href={LOGIN_PATH} role="menuitem" className={styles.item}>
+            로그인
+          </Link>
+          <Link href={SIGNUP_PATH} role="menuitem" className={`${styles.item} ${styles.itemMuted}`}>
+            회원가입
+          </Link>
         </div>
       )}
     </div>
