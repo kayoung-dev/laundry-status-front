@@ -81,6 +81,8 @@ export default function MapStage({ hall, open, selectedId, dimmedIds, onHover, o
             reducedMotion={reducedMotion}
             handleRef={handleRef}
             labelSlots={labelSlots}
+            onHover={onHover}
+            onPickHall={pickHall}
             onQuarterChange={onQuarterChange}
           />
         </div>

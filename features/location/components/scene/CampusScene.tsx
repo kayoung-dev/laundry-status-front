@@ -5,6 +5,7 @@ import { GROUND_HEIGHT } from "@/features/location/constants";
 import BoxInstances from "./BoxInstances";
 import ExtrudedBlock from "./ExtrudedBlock";
 import GroundPlane from "./GroundPlane";
+import HallHitAreas from "./HallHitAreas";
 import { TREES } from "./landscape";
 import Panes from "./Panes";
 import { CAMPUS_CONTEXT, CAMPUS_WINDOWS, campusHalls, type StyledBlocks } from "./scene-layout";
@@ -15,6 +16,8 @@ export interface CampusSceneProps {
   selectedId: string | null;
   /** Halls left out by the 세탁기/건조기 filter, drawn paler. */
   dimmedIds: string[];
+  onHover: (id: string) => void;
+  onPickHall: (id: string) => void;
 }
 
 function Blocks({ group }: { group: StyledBlocks }) {
@@ -35,7 +38,7 @@ function Blocks({ group }: { group: StyledBlocks }) {
  * Campus: painted ground, trees, other buildings, windows (all fixed) and the
  * halls, which recolor when one is selected or left out by the filter.
  */
-export default function CampusScene({ selectedId, dimmedIds }: CampusSceneProps) {
+export default function CampusScene({ selectedId, dimmedIds, onHover, onPickHall }: CampusSceneProps) {
   const dimmedKey = dimmedIds.join(",");
   const halls = useMemo(() => campusHalls(selectedId, new Set(dimmedKey ? dimmedKey.split(",") : [])), [selectedId, dimmedKey]);
 
@@ -48,6 +51,7 @@ export default function CampusScene({ selectedId, dimmedIds }: CampusSceneProps)
         <Blocks key={g.style.edge} group={g} />
       ))}
       <Panes panes={CAMPUS_WINDOWS} />
+      <HallHitAreas onHover={onHover} onPick={onPickHall} />
     </>
   );
 }

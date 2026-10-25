@@ -23,6 +23,10 @@ export interface LocationSceneProps {
   reducedMotion: boolean;
   handleRef: RefObject<MapHandle | null>;
   labelSlots: RefObject<LabelSlots>;
+  /** Pointer over a hall block on the campus map. */
+  onHover: (id: string) => void;
+  /** Click on a hall block. */
+  onPickHall: (id: string) => void;
   onQuarterChange: (quarter: number) => void;
 }
 
@@ -55,7 +59,7 @@ export default function LocationScene(props: LocationSceneProps) {
   );
 }
 
-function SceneContent({ hall, open, spread, selectedId, dimmedIds, reducedMotion, handleRef, labelSlots, onQuarterChange }: LocationSceneProps) {
+function SceneContent({ hall, open, spread, selectedId, dimmedIds, reducedMotion, handleRef, labelSlots, onHover, onPickHall, onQuarterChange }: LocationSceneProps) {
   const compact = useThree((s) => s.size.width < 600);
   const padding = useMemo(() => scenePadding(Boolean(hall), compact), [hall, compact]);
   const blocks = useMemo(() => (hall ? buildingBlocks(hall, spread) : null), [hall, spread]);
@@ -72,7 +76,7 @@ function SceneContent({ hall, open, spread, selectedId, dimmedIds, reducedMotion
         handleRef={handleRef}
         onQuarterChange={onQuarterChange}
       />
-      {blocks ? <BuildingScene blocks={blocks} /> : <CampusScene selectedId={selectedId} dimmedIds={dimmedIds} />}
+      {blocks ? <BuildingScene blocks={blocks} /> : <CampusScene selectedId={selectedId} dimmedIds={dimmedIds} onHover={onHover} onPickHall={onPickHall} />}
       <LabelProjector slots={labelSlots} />
     </>
   );
