@@ -64,10 +64,14 @@ export interface Hall {
   no: string;
   name: string;
   floors: number;
-  /** Footprint on the campus plan. */
+  /** Footprint on the campus plan (the bounding box when `outline` is set). */
   footprint: PlanRect;
+  /** Outline when the building is not an axis-aligned rectangle. */
+  outline?: PlanPoint[];
   /** Where the pin stands along the footprint depth, 0 = back, 1 = front. */
   pinAt: number;
+  /** Pin position for outlined buildings. */
+  labelAt?: PlanPoint;
   /** Empty while the hall's laundry rooms are not registered yet. */
   laundries: Laundry[];
   plan: FloorPlan;

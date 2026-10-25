@@ -36,13 +36,15 @@ function scenePadding(isHall: boolean, compact: boolean): FitPadding {
 
 /**
  * The 3D map: one orthographic iso canvas that redraws only when something
- * moves (frameloop "demand"), at most 2× resolution. Loaded with next/dynamic
+ * moves (frameloop "demand"), at most 2× resolution, with no tone mapping
+ * (`flat`) so the design's colors come out exact. Loaded with next/dynamic
  * from MapStage only, so three.js stays out of every other page.
  */
 export default function LocationScene(props: LocationSceneProps) {
   return (
     <Canvas
       orthographic
+      flat
       frameloop="demand"
       dpr={[1, 2]}
       camera={{ position: [60, 60, 60], zoom: 10, near: 1, far: 400 }}

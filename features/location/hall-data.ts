@@ -156,7 +156,8 @@ export const HALL_LIST: Hall[] = [
     HYJ_PLAN,
   ),
   hall({
-    id: "reed", no: "302", name: "갈대상자관", floors: 5, footprint: { x: -8.55, y: -28, w: 2.1, d: 5 }, pinAt: 0.5,
+    id: "reed", no: "302", name: "갈대상자관", floors: 5, footprint: { x: -11.34, y: -36.21, w: 3.68, d: 5.42 }, pinAt: 0.5,
+    outline: [[-9.632, -36.209], [-7.658, -35.491], [-9.368, -30.791], [-11.342, -31.509]], labelAt: [-9.5, -33.5],
     laundries: [laundry(1, "Wi Wi Di")], note: "하용조관 뒤 별도 단지",
   }),
 ];

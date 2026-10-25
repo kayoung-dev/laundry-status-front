@@ -1,11 +1,15 @@
 "use client";
 
 import { useMemo } from "react";
-import { GROUND_HEIGHT, SCENE_COLOR } from "@/features/location/constants";
-import BoxEdges from "./BoxEdges";
-import BoxInstances, { type SceneBox } from "./BoxInstances";
+import { GROUND_HEIGHT } from "@/features/location/constants";
+import BoxInstances from "./BoxInstances";
 import ExtrudedBlock from "./ExtrudedBlock";
-import { CAMPUS_BASE, CAMPUS_CONTEXT_BOXES, CAMPUS_CONTEXT_SHAPES, campusHallBoxes } from "./scene-layout";
+import GroundPlane from "./GroundPlane";
+import { TREES } from "./landscape";
+import Panes from "./Panes";
+import { CAMPUS_CONTEXT, CAMPUS_WINDOWS, campusHalls, type StyledBlocks } from "./scene-layout";
+import SceneLines from "./SceneLines";
+import Trees from "./Trees";
 
 export interface CampusSceneProps {
   selectedId: string | null;
@@ -13,38 +17,37 @@ export interface CampusSceneProps {
   dimmedIds: string[];
 }
 
-/** Outline whole blocks and ground plates, not roads or the thin floor-line bands. */
-function isBuilding(b: SceneBox): boolean {
-  return b.h > 0.05;
+function Blocks({ group }: { group: StyledBlocks }) {
+  const { style } = group;
+  return (
+    <>
+      {group.boxes.length > 0 && <BoxInstances boxes={group.boxes} palette={style} />}
+      {group.shapes.map((s) => (
+        <ExtrudedBlock key={s.key} outline={s.outline} z={GROUND_HEIGHT} height={s.height} palette={style} />
+      ))}
+      {style.line && group.lines.length > 0 && <SceneLines segments={group.lines} color={style.line} />}
+      {group.edges.length > 0 && <SceneLines segments={group.edges} color={style.edge} />}
+    </>
+  );
 }
 
-const GROUND_OUTLINES = CAMPUS_BASE.filter(isBuilding);
-const CONTEXT_OUTLINES = CAMPUS_CONTEXT_BOXES.filter(isBuilding);
-
-/** Campus blocks: ground, roads and other buildings never change; halls recolor on selection. */
+/**
+ * Campus: painted ground, trees, other buildings, windows (all fixed) and the
+ * halls, which recolor when one is selected or left out by the filter.
+ */
 export default function CampusScene({ selectedId, dimmedIds }: CampusSceneProps) {
   const dimmedKey = dimmedIds.join(",");
-  const hallBoxes = useMemo(() => campusHallBoxes(selectedId, new Set(dimmedKey ? dimmedKey.split(",") : [])), [selectedId, dimmedKey]);
-  const outlines = useMemo(() => {
-    const blocks = hallBoxes.filter(isBuilding);
-    return {
-      selected: blocks.filter((b) => b.color === SCENE_COLOR.hallSelected),
-      rest: blocks.filter((b) => b.color !== SCENE_COLOR.hallSelected),
-    };
-  }, [hallBoxes]);
+  const halls = useMemo(() => campusHalls(selectedId, new Set(dimmedKey ? dimmedKey.split(",") : [])), [selectedId, dimmedKey]);
 
   return (
     <>
-      <BoxInstances boxes={CAMPUS_BASE} />
-      <BoxInstances boxes={CAMPUS_CONTEXT_BOXES} />
-      {CAMPUS_CONTEXT_SHAPES.map((s) => (
-        <ExtrudedBlock key={s.no} outline={s.outline} z={GROUND_HEIGHT} height={s.height} color={SCENE_COLOR.context} />
+      <GroundPlane />
+      <Trees trees={TREES} />
+      <Blocks group={CAMPUS_CONTEXT} />
+      {halls.map((g) => (
+        <Blocks key={g.style.edge} group={g} />
       ))}
-      <BoxInstances boxes={hallBoxes} />
-      <BoxEdges boxes={GROUND_OUTLINES} color={SCENE_COLOR.edgeGround} />
-      <BoxEdges boxes={CONTEXT_OUTLINES} color={SCENE_COLOR.edgeContext} />
-      <BoxEdges boxes={outlines.rest} color={SCENE_COLOR.edgeHall} />
-      <BoxEdges boxes={outlines.selected} color={SCENE_COLOR.edgeHallSelected} />
+      <Panes panes={CAMPUS_WINDOWS} />
     </>
   );
 }

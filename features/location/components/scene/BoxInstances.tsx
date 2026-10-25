@@ -2,8 +2,8 @@
 
 import { useThree } from "@react-three/fiber";
 import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
-import { BoxGeometry, Color, Matrix4, type InstancedMesh } from "three";
-import { createFaceShadeMaterial } from "./face-shade";
+import { BoxGeometry, Matrix4, type InstancedMesh } from "three";
+import { createPaletteMaterial, type FacePalette } from "./palette-material";
 
 /** A block in plan coordinates: x/y on the ground, z up. */
 export interface SceneBox {
@@ -13,28 +13,25 @@ export interface SceneBox {
   w: number;
   d: number;
   h: number;
-  color: string;
 }
 
 interface BoxInstancesProps {
   boxes: SceneBox[];
+  palette: FacePalette;
   /** 0–1; below 1 the blocks are see-through (ghost floors). */
   opacity?: number;
 }
 
 const matrix = new Matrix4();
-const color = new Color();
 
-/** Every block of one kind in a single draw call. Plan y maps to three.js z, height to y. */
-export default function BoxInstances({ boxes, opacity = 1 }: BoxInstancesProps) {
+/** Every block of one style in a single draw call. Plan y maps to three.js z, height to y. */
+export default function BoxInstances({ boxes, palette, opacity = 1 }: BoxInstancesProps) {
   const ref = useRef<InstancedMesh>(null);
   const invalidate = useThree((s) => s.invalidate);
   // Unit cube with its corner at the origin, so scale + position place it like a plan rectangle.
   const geometry = useMemo(() => new BoxGeometry(1, 1, 1).translate(0.5, 0.5, 0.5), []);
-  const material = useMemo(
-    () => createFaceShadeMaterial({ transparent: opacity < 1, opacity, depthWrite: opacity >= 1 }),
-    [opacity],
-  );
+  const { top, left, right } = palette;
+  const material = useMemo(() => createPaletteMaterial({ top, left, right }, opacity), [top, left, right, opacity]);
 
   useEffect(() => () => geometry.dispose(), [geometry]);
   useEffect(() => () => material.dispose(), [material]);
@@ -47,12 +44,8 @@ export default function BoxInstances({ boxes, opacity = 1 }: BoxInstancesProps) 
     boxes.forEach((b, i) => {
       matrix.makeScale(b.w, b.h, b.d).setPosition(b.x, b.z, b.y);
       mesh.setMatrixAt(i, matrix);
-      mesh.setColorAt(i, color.set(b.color));
     });
     mesh.instanceMatrix.needsUpdate = true;
-    if (mesh.instanceColor) {
-      mesh.instanceColor.needsUpdate = true;
-    }
     mesh.computeBoundingSphere();
     invalidate();
   }, [boxes, invalidate]);

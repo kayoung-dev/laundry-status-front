@@ -3,20 +3,13 @@ import type { CampusBuilding, PlanRect } from "./types";
 // Campus plan from the design canvas "세탁실 위치" (plan units, temporary until
 // the real layout is measured). Residence halls live in hall-data.ts.
 
-/** Ground plates: the main campus and the separate 갈대상자관 site. */
-export const GROUNDS: PlanRect[] = [
-  { x: -11, y: -28.5, w: 7, d: 6 },
-  { x: -16, y: -19.5, w: 29.5, d: 30 },
-];
-
+/** Asphalt roads inside the campus. The landscape around them is in campus-landscape.ts. */
 export const ROADS: PlanRect[] = [
-  { x: 7, y: -13, w: 1.2, d: 23 },
   { x: -16, y: -4.6, w: 24.2, d: 1.2 },
   { x: -4, y: -16.5, w: 0.8, d: 11.9 },
   { x: -16, y: -16.5, w: 1, d: 22.9 },
   { x: -16, y: -16.5, w: 12.8, d: 1 },
-  { x: -8.1, y: -19.5, w: 1.2, d: 4 },
-  { x: -8.1, y: -23, w: 1.2, d: 0.5 },
+  { x: -11.5, y: -29, w: 1, d: 13 },
 ];
 
 export const CAMPUS_BUILDINGS: CampusBuilding[] = [
@@ -25,20 +18,20 @@ export const CAMPUS_BUILDINGS: CampusBuilding[] = [
   {
     no: "511",
     name: "복지동",
-    floors: 3,
-    footprint: { x: -8.8, y: -15.2, w: 4.6, d: 3.8 },
-    outline: [[-8.8, -15.2], [-4.2, -15.2], [-4.2, -11.4], [-6, -11.4], [-6, -13.4], [-8.8, -13.4]],
-    labelAt: [-6.5, -14.3],
+    floors: 5,
+    footprint: { x: -9.3, y: -14.6, w: 5.1, d: 5.2 },
+    outline: [[-9.3, -14.6], [-4.2, -14.6], [-4.2, -9.4], [-6.4, -9.4], [-6.4, -12.8], [-9.3, -12.8]],
+    labelAt: [-6.75, -13.7],
   },
   {
     no: "515",
     name: "하늘소리",
-    floors: 1,
-    footprint: { x: -3, y: -9.6, w: 2.4, d: 2.4 },
+    floors: 3,
+    footprint: { x: -2.79, y: -14.05, w: 5.18, d: 4.79 },
     outline: [
-      [-2.2, -9.6], [-1.4, -9.6], [-1.4, -8.8], [-0.6, -8.8], [-0.6, -8], [-1.4, -8],
-      [-1.4, -7.2], [-2.2, -7.2], [-2.2, -8], [-3, -8], [-3, -8.8], [-2.2, -8.8],
+      [-1.89, -13.94], [-0.94, -13.13], [-0.17, -14.05], [0.83, -13.22], [0.06, -12.3], [2.39, -10.34],
+      [1.49, -9.26], [-0.84, -11.22], [-1.61, -10.31], [-2.61, -11.14], [-1.84, -12.06], [-2.79, -12.86],
     ],
-    labelAt: [-1.8, -8.4],
+    labelAt: [-0.2, -11.6],
   },
 ];

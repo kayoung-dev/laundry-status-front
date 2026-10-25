@@ -3,26 +3,27 @@
 import { useEffect, useMemo } from "react";
 import { ExtrudeGeometry, Shape, Vector2 } from "three";
 import type { PlanPoint } from "@/features/location/types";
-import { createFaceShadeMaterial } from "./face-shade";
+import { createPaletteMaterial, type FacePalette } from "./palette-material";
 
 interface ExtrudedBlockProps {
   outline: PlanPoint[];
   z: number;
   height: number;
-  color: string;
+  palette: FacePalette;
 }
 
-/** A building that is not a rectangle, raised from its plan outline. */
-export default function ExtrudedBlock({ outline, z, height, color }: ExtrudedBlockProps) {
+/** A building that is not an axis-aligned rectangle, raised from its plan outline. */
+export default function ExtrudedBlock({ outline, z, height, palette }: ExtrudedBlockProps) {
   const geometry = useMemo(() => {
     // Shape y is flipped because rotating the extrusion upright maps shape y to -z.
     const shape = new Shape(outline.map(([x, y]) => new Vector2(x, -y)));
     const g = new ExtrudeGeometry(shape, { depth: height, bevelEnabled: false });
-    // Bake the rotation in, so normals stay axis-aligned for the face shading.
+    // Bake the rotation in, so the normals the material reads are world normals.
     g.rotateX(-Math.PI / 2).translate(0, z, 0);
     return g;
   }, [outline, z, height]);
-  const material = useMemo(() => createFaceShadeMaterial({ color }), [color]);
+  const { top, left, right } = palette;
+  const material = useMemo(() => createPaletteMaterial({ top, left, right }), [top, left, right]);
 
   useEffect(() => () => geometry.dispose(), [geometry]);
   useEffect(() => () => material.dispose(), [material]);

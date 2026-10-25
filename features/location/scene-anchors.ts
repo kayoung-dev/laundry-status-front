@@ -18,6 +18,9 @@ function hallTop(h: Hall): number {
 }
 
 export function hallPinAnchor(h: Hall): Anchor {
+  if (h.labelAt) {
+    return [h.labelAt[0], hallTop(h), h.labelAt[1]];
+  }
   return [h.footprint.x + h.footprint.w / 2, hallTop(h), h.footprint.y + h.footprint.d * h.pinAt];
 }
 

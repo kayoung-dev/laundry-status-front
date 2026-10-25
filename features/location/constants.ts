@@ -44,31 +44,3 @@ export const FOCUS_MS = 400;
 // 3D sizes in plan units.
 export const STOREY_HEIGHT = 0.55;
 export const GROUND_HEIGHT = 0.2;
-
-/**
- * Wall colors of the 3D blocks. Tops and the second wall are shaded from these
- * in the material, so one color per block reads like the design's three faces.
- */
-export const SCENE_COLOR = {
-  ground: "#c8d1dc",
-  road: "#fbfcfd",
-  context: "#c9cfd6",
-  contextLine: "#e1e5ea",
-  hall: "#5ea5f9",
-  hallLine: "#a9cdfb",
-  hallSelected: "#0057c2",
-  hallSelectedLine: "#3b8ff6",
-  hallMuted: "#b9d4f5",
-  floorGhost: "#e6eef8",
-  floorSolid: "#d9e5f3",
-  floorLaundry: "#4d97f5",
-  laundryRoom: "#b6d3f8",
-  landmark: "#d3e0f1",
-  door: "#4d4d4d",
-  edgeHall: "#1f6fd6",
-  edgeHallSelected: "#003a85",
-  edgeContext: "#98a2ad",
-  edgeGround: "#a3afbe",
-  edgeFloor: "#bfd1e7",
-  edgeLaundry: "#0064e2",
-} as const;
