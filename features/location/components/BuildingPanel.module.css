@@ -1,0 +1,93 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.summary {
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--background-100);
+  box-shadow: 0 0 0 1px var(--wash-line);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.eyebrow {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gray-900);
+}
+
+.title {
+  margin: 0;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.note {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gray-900);
+}
+
+.primary {
+  height: 44px;
+  border-radius: 10px;
+  background: var(--gray-1000);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 150ms ease-in-out;
+}
+
+.primary:hover {
+  background: #383838;
+}
+
+/* Phones: one sheet over the bottom of the map. */
+@media (max-width: 767px) {
+  .panel {
+    position: relative;
+    z-index: 1;
+    margin-top: -16px;
+    padding: 16px 16px 20px;
+    border-radius: 20px 20px 0 0;
+    background: var(--background-100);
+    box-shadow: 0 -1px 0 var(--wash-line), 0 -12px 24px -16px #0064e24d;
+    gap: 12px;
+  }
+
+  .summary {
+    padding: 0;
+    box-shadow: none;
+    gap: 12px;
+  }
+
+  .title {
+    font-size: 17px;
+    line-height: 24px;
+    letter-spacing: 0;
+  }
+
+  .primary {
+    height: 46px;
+    border-radius: 12px;
+    font-size: 15px;
+  }
+}

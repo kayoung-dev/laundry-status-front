@@ -1,0 +1,120 @@
+.card {
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--background-100);
+  box-shadow: 0 0 0 2px var(--gray-1000), 0 16px 32px -24px #00000066;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.where {
+  font-size: 13px;
+  color: var(--gray-900);
+}
+
+.name {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.no {
+  display: none;
+}
+
+.primary {
+  height: 42px;
+  border-radius: 10px;
+  background: var(--gray-1000);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 150ms ease-in-out;
+}
+
+.primary:hover {
+  background: #383838;
+}
+
+/* Phones: one compact row at the top of the sheet. */
+@media (max-width: 767px) {
+  .card {
+    padding: 10px 12px;
+    border-radius: 14px;
+    box-shadow: 0 0 0 2px var(--gray-1000);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .top {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .where {
+    display: none;
+  }
+
+  .name {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0;
+  }
+
+  .no {
+    width: 34px;
+    height: 34px;
+    flex: none;
+    border-radius: 9999px;
+    background: var(--gray-100);
+    color: var(--gray-900);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 15px;
+  }
+
+  .no[data-state="available"] {
+    background: var(--green-100);
+    color: var(--green-900);
+  }
+
+  .no[data-state="in_use"] {
+    background: var(--blue-100);
+    color: var(--blue-900);
+  }
+
+  .no[data-state="maintenance"],
+  .no[data-state="error"] {
+    background: var(--red-100);
+    color: var(--red-900);
+  }
+
+  .primary {
+    grid-column: 1 / -1;
+    height: 44px;
+    border-radius: 12px;
+  }
+}

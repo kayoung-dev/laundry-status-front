@@ -1,0 +1,70 @@
+.layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4px 24px 64px;
+  box-sizing: border-box;
+  display: grid;
+  align-items: start;
+  gap: 24px;
+}
+
+/* Campus: list on the left like the design; hall view: summary on the right. */
+.layout[data-level="campus"] {
+  grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+}
+
+.layout[data-level="campus"] .side {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.layout[data-level="building"] {
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 340px);
+}
+
+.side {
+  min-width: 0;
+}
+
+.chip {
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 9999px;
+  background: var(--background-100);
+  box-shadow: 0 0 0 1px var(--wash-line-strong);
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: var(--gray-900);
+}
+
+.chip[data-tone="accent"] {
+  background: var(--wash-tint-200);
+  box-shadow: none;
+  font-weight: 600;
+  color: var(--blue-900);
+}
+
+/* Narrow web: the panel moves under the map. */
+@media (max-width: 920px) {
+  .layout[data-level] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .layout[data-level] .side {
+    grid-row: auto;
+    grid-column: auto;
+  }
+}
+
+/* Phones: the map runs edge to edge and the panel is a sheet over its bottom. */
+@media (max-width: 767px) {
+  .layout {
+    padding: 0;
+    gap: 0;
+  }
+
+  .layout[data-view="list"] > :first-child {
+    display: none;
+  }
+}

@@ -1,0 +1,33 @@
+.note {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0 6px;
+  border-radius: 6px;
+  background: #ffffffd9;
+  font-family: var(--font-geist), var(--font-noto-kr), sans-serif;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 500;
+  color: var(--gray-900);
+  white-space: nowrap;
+  transform: translate(-50%, calc(-100% - 4px));
+  user-select: none;
+}
+
+.note[data-place="above"] {
+  color: var(--gray-700);
+}
+
+.note[data-place="center"] {
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 767px) {
+  .note {
+    padding: 0 4px;
+    border-radius: 4px;
+    font-size: 9px;
+    line-height: 13px;
+  }
+}

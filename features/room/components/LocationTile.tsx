@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Icon from "@/components/ui/Icon";
+import { LOCATION_PATH } from "@/constants/navigation";
 import styles from "./LocationTile.module.css";
 
-/** Link to the machine layout map ("세탁실 위치", not built yet). */
+/** Link to the machine layout map ("세탁실 위치"). */
 export default function LocationTile() {
   return (
-    <Link href="#" className={styles.tile}>
+    <Link href={LOCATION_PATH} className={styles.tile}>
       <span aria-hidden="true" className={styles.icon}>
         <Icon name="pin" size={24} />
       </span>
