@@ -1,4 +1,5 @@
 import Icon from "@/components/ui/Icon";
+import WaveEdge from "@/components/ui/WaveEdge";
 import type { ConnectionStatus, MachineSnapshotItem } from "../types";
 import styles from "./RoomBanner.module.css";
 
@@ -14,7 +15,7 @@ export default function RoomBanner({ hall, machines, connectionStatus }: RoomBan
 
   return (
     <section aria-label="세탁실 안내" className={styles.banner}>
-      <h1 className={styles.srOnly}>{hall} 세탁실 현황</h1>
+      <h1 className="sr-only">{hall} 세탁실 현황</h1>
       <div className={styles.inner}>
         {connectionStatus === "error" && (
           <p role="status" className={styles.notice}>
@@ -37,9 +38,7 @@ export default function RoomBanner({ hall, machines, connectionStatus }: RoomBan
           </p>
         )}
       </div>
-      <svg aria-hidden="true" className={styles.wave} viewBox="0 0 1440 40" preserveAspectRatio="none">
-        <path d="M0 22 C240 4 480 4 720 20 S1200 36 1440 18 V40 H0z" fill="var(--background-100)" />
-      </svg>
+      <WaveEdge className={styles.wave} />
     </section>
   );
 }

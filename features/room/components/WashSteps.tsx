@@ -18,8 +18,8 @@ export default function WashSteps({ steps }: { steps: StepView[] }) {
           </div>
           <span className={styles.name}>
             {step.name}
-            {step.status === "current" && <span className={styles.srOnly}> (진행 중)</span>}
-            {step.status === "done" && <span className={styles.srOnly}> (완료)</span>}
+            {step.status === "current" && <span className="sr-only"> (진행 중)</span>}
+            {step.status === "done" && <span className="sr-only"> (완료)</span>}
           </span>
         </li>
       ))}

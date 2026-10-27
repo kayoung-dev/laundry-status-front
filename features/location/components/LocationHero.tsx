@@ -1,11 +1,18 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import Icon from "@/components/ui/Icon";
+import WaveEdge from "@/components/ui/WaveEdge";
 import styles from "./LocationHero.module.css";
 
 export interface Crumb {
   label: string;
   href?: string;
+}
+
+/** Fact beside the title ("지상 9층"); `accent` = the laundry floors. */
+export interface HeroChip {
+  label: string;
+  accent?: boolean;
 }
 
 interface LocationHeroProps {
@@ -18,7 +25,7 @@ interface LocationHeroProps {
   lead?: string;
   /** Phones: the short line under the title (lead or chips are hidden there). */
   mobileLead: string;
-  chips?: ReactNode;
+  chips?: HeroChip[];
   /** One level up, shown as the back button. */
   back?: { href: string; label: string };
   actions?: ReactNode;
@@ -51,9 +58,7 @@ export default function LocationHero({ crumbs, title, code, lead, mobileLead, ch
           <div className={styles.titleRow}>
             {back && (
               <Link href={back.href} className={styles.back} aria-label={back.label}>
-                <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-                  <path d="M10 3.5L5.5 8l4.5 4.5" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <Icon name="chevron-left" />
               </Link>
             )}
             <span className={styles.titleText}>
@@ -63,15 +68,21 @@ export default function LocationHero({ crumbs, title, code, lead, mobileLead, ch
               </h1>
               <span className={styles.mobileLead}>{mobileLead}</span>
             </span>
-            {chips && <span className={styles.chips}>{chips}</span>}
+            {chips && chips.length > 0 && (
+              <span className={styles.chips}>
+                {chips.map((c) => (
+                  <span key={c.label} className={styles.chip} data-tone={c.accent ? "accent" : undefined}>
+                    {c.label}
+                  </span>
+                ))}
+              </span>
+            )}
           </div>
           {lead && <p className={styles.lead}>{lead}</p>}
         </div>
         {actions && <div className={styles.actions}>{actions}</div>}
       </div>
-      <svg aria-hidden="true" className={styles.wave} viewBox="0 0 1440 40" preserveAspectRatio="none">
-        <path d="M0 22 C240 4 480 4 720 20 S1200 36 1440 18 V40 H0z" fill="var(--background-100)" />
-      </svg>
+      <WaveEdge className={styles.wave} />
     </section>
   );
 }

@@ -123,6 +123,25 @@
   gap: 8px;
 }
 
+.chip {
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 9999px;
+  background: var(--background-100);
+  box-shadow: 0 0 0 1px var(--wash-line-strong);
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: var(--gray-900);
+}
+
+.chip[data-tone="accent"] {
+  background: var(--wash-tint-200);
+  box-shadow: none;
+  font-weight: 600;
+  color: var(--blue-900);
+}
+
 .lead {
   margin: 0;
   font-size: 15px;
@@ -135,15 +154,6 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-}
-
-.wave {
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 100%;
-  height: 40px;
-  display: block;
 }
 
 /* Phones: a compact bar; the map and the sheet below carry the rest. */
@@ -167,7 +177,7 @@
   .crumbs,
   .chips,
   .lead,
-  .wave {
+  .hero .wave {
     display: none;
   }
 

@@ -2,7 +2,8 @@ import { Box3, Vector3 } from "three";
 import { CAMPUS_BUILDINGS } from "@/features/location/campus-data";
 import { GROUND_HEIGHT, STOREY_HEIGHT } from "@/features/location/constants";
 import { HALL_LIST } from "@/features/location/hall-data";
-import { FLAT_RISE, LANDMARK_RISE, floorSpacing } from "@/features/location/scene-anchors";
+import { rectOutline } from "@/features/location/plan-geometry";
+import { FLAT_RISE, LANDMARK_RISE, blockHeight, floorStack, roofHeight } from "@/features/location/scene-anchors";
 import type { Hall, PlanPoint, PlanRect } from "@/features/location/types";
 import type { SceneBox } from "./BoxInstances";
 import type { Pane } from "./Panes";
@@ -13,10 +14,6 @@ import { BUILDING_STYLE, CAMPUS_STYLE, WINDOW_COLOR, type BlockStyle } from "./p
 
 function block(r: PlanRect, z: number, h: number): SceneBox {
   return { x: r.x, y: r.y, z, w: r.w, d: r.d, h };
-}
-
-function rectOutline(r: PlanRect): PlanPoint[] {
-  return [[r.x, r.y], [r.x + r.w, r.y], [r.x + r.w, r.y + r.d], [r.x, r.y + r.d]];
 }
 
 /** Segments ([x, height, y] × 2) around an outline at height z. */
@@ -68,7 +65,7 @@ interface Building {
 
 /** Adds a building; halls get a line every half floor like the design, others every floor. */
 function addBuilding(group: StyledBlocks, b: Building, lineStep: number) {
-  const height = b.floors * STOREY_HEIGHT;
+  const height = blockHeight(b.floors);
   const outline = b.outline ?? rectOutline(b.footprint);
   if (b.outline) {
     group.shapes.push({ key: b.key, outline: b.outline, height });
@@ -102,7 +99,7 @@ export const CAMPUS_BOUNDS = (() => {
   const box = new Box3();
   [...HALL_LIST, ...CAMPUS_BUILDINGS].forEach(({ footprint: f, floors }) => {
     box.expandByPoint(new Vector3(f.x, 0, f.y));
-    box.expandByPoint(new Vector3(f.x + f.w, GROUND_HEIGHT + floors * STOREY_HEIGHT, f.y + f.d));
+    box.expandByPoint(new Vector3(f.x + f.w, roofHeight(floors), f.y + f.d));
   });
   return box.expandByVector(new Vector3(1.5, 0, 1.5));
 })();
@@ -214,10 +211,7 @@ export interface BuildingBlocks {
 /** `spread` 0 = floors stacked (접기), 1 = pulled apart (펼치기); in between while animating. */
 export function buildingBlocks(h: Hall, spread: number): BuildingBlocks {
   const { plan } = h;
-  const { pitch, slab } = floorSpacing(spread);
-  const laundryFloors = new Set(h.laundries.map((l) => l.floor));
-  const open = spread > 0.5;
-  const top = h.floors - 1;
+  const { floors, slab, open } = floorStack(h, spread);
   const by: Record<keyof typeof BUILDING_STYLE, SceneBox[]> = {
     laundryFloor: [],
     ghostFloor: [],
@@ -227,18 +221,16 @@ export function buildingBlocks(h: Hall, spread: number): BuildingBlocks {
     door: [],
   };
 
-  for (let k = 0; k <= top; k++) {
-    const z = k * pitch;
-    const laundry = laundryFloors.has(k + 1);
+  floors.forEach(({ floor, z, laundry }) => {
     const floorKey = laundry ? "laundryFloor" : open ? "ghostFloor" : "solidFloor";
     plan.wings.forEach((w) => by[floorKey].push(block(w, z, slab)));
     if (laundry && open) {
       by.laundryRoom.push(block(plan.laundry, z + slab, 0.6));
     }
-    if (k === top) {
+    if (floor === h.floors) {
       plan.landmarks.forEach((m) => by[m.flat ? "door" : "landmark"].push(block(m, z + slab, m.flat ? FLAT_RISE : LANDMARK_RISE)));
     }
-  }
+  });
 
   const groups = (Object.keys(by) as (keyof typeof BUILDING_STYLE)[]).map((key) => ({ key, boxes: by[key], opacity: key === "ghostFloor" ? 0.7 : 1 }));
   return { groups, bounds: boxBounds(Object.values(by).flat()) };
