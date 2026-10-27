@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { MouseEvent, ReactNode } from "react";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 interface HomeLinkProps {
   className?: string;
@@ -15,13 +16,13 @@ interface HomeLinkProps {
  */
 export default function HomeLink({ className, children }: HomeLinkProps) {
   const pathname = usePathname();
+  const reduce = usePrefersReducedMotion();
 
   function onClick(event: MouseEvent<HTMLAnchorElement>) {
     if (pathname !== "/") {
       return;
     }
     event.preventDefault();
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     window.history.replaceState(null, "", "/");
     window.scrollTo({ top: 0, behavior: reduce ? "instant" : "smooth" });
   }

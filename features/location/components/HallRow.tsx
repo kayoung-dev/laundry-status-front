@@ -1,4 +1,7 @@
 import Link from "next/link";
+import Icon from "@/components/ui/Icon";
+import { TYPE_LABEL } from "@/constants/machine-labels";
+import { LAUNDRY_PENDING } from "@/features/location/constants";
 import type { Hall, KindFilter } from "@/features/location/types";
 import { countFree, hallMachines, laundryFloorsLabel, locationPath } from "@/features/location/utils";
 import StatePill from "./StatePill";
@@ -19,8 +22,8 @@ export default function HallRow({ hall, filter, selected, variant, onHover }: Ha
   const kind = filter === "dryer" ? "dryer" : "washer";
   const known = machines.length > 0;
   const free = countFree(machines, kind);
-  const sub = known ? `세탁실 ${laundryFloorsLabel(hall)} · ${machines.length}대${hall.note ? ` · ${hall.note}` : ""}` : "세탁실 정보 준비 중";
-  const pill = known ? `빈 ${kind === "dryer" ? "건조기" : "세탁기"} ${free}` : "준비 중";
+  const sub = known ? `세탁실 ${laundryFloorsLabel(hall)} · ${machines.length}대${hall.note ? ` · ${hall.note}` : ""}` : LAUNDRY_PENDING;
+  const pill = known ? `빈 ${TYPE_LABEL[kind]} ${free}` : "준비 중";
 
   return (
     <Link
@@ -39,11 +42,7 @@ export default function HallRow({ hall, filter, selected, variant, onHover }: Ha
         <span className={styles.sub}>{sub}</span>
       </span>
       <StatePill state={free > 0 ? "available" : null}>{pill}</StatePill>
-      {variant === "card" && (
-        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" className={styles.chevron}>
-          <path d="M6 3.5L10.5 8 6 12.5" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      )}
+      {variant === "card" && <Icon name="chevron-right" className={styles.chevron} />}
     </Link>
   );
 }

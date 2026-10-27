@@ -1,4 +1,6 @@
+import { TYPE_LABEL } from "@/constants/machine-labels";
 import { LOCATION_PATH } from "@/constants/navigation";
+import type { MachineState } from "@/types/machine";
 import { STATE_ORDER } from "./constants";
 import { HALL_LIST } from "./hall-data";
 import type { Hall, KindFilter, Laundry, LaundryMachine, MachineKind, StateCount } from "./types";
@@ -31,12 +33,13 @@ export function hallMachines(hall: Hall): LaundryMachine[] {
   return hall.laundries.flatMap((l) => l.machines);
 }
 
-export function countKind(machines: LaundryMachine[], kind: MachineKind): number {
-  return machines.filter((m) => m.kind === kind).length;
+/** Machines of one kind, optionally only those in `state`. */
+export function countKind(machines: LaundryMachine[], kind: MachineKind, state?: MachineState): number {
+  return machines.filter((m) => m.kind === kind && (!state || m.state === state)).length;
 }
 
 export function countFree(machines: LaundryMachine[], kind: MachineKind): number {
-  return machines.filter((m) => m.kind === kind && m.state === "available").length;
+  return countKind(machines, kind, "available");
 }
 
 /** Non-empty state groups in list order. */
@@ -51,15 +54,20 @@ export function laundryFloorsLabel(hall: Hall): string {
 
 /** "세탁기 3 · 건조기 3" */
 export function kindSummary(machines: LaundryMachine[]): string {
-  return `세탁기 ${countKind(machines, "washer")} · 건조기 ${countKind(machines, "dryer")}`;
+  return `${TYPE_LABEL.washer} ${countKind(machines, "washer")} · ${TYPE_LABEL.dryer} ${countKind(machines, "dryer")}`;
 }
 
 export function matchesKind(hall: Hall, filter: KindFilter): boolean {
   return filter === "all" ? true : countKind(hallMachines(hall), filter) > 0;
 }
 
+/** Halls the 세탁기/건조기 filter keeps. */
+export function hallsMatching(filter: KindFilter): Hall[] {
+  return HALL_LIST.filter((h) => matchesKind(h, filter));
+}
+
 export function machineName(machine: LaundryMachine): string {
-  return `${machine.kind === "washer" ? "세탁기" : "건조기"} ${machine.no}번`;
+  return `${TYPE_LABEL[machine.kind]} ${machine.no}번`;
 }
 
 /** The machine selected when a floor opens: a free washer first, then anything free. */

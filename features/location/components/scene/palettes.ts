@@ -34,7 +34,6 @@ export const TREE_STYLE = {
 
 export const WINDOW_COLOR = {
   pane: "#cfe8f7",
-  glass: "#8fc1e4",
   curtainWall: "#5fa9bb",
   lobby: "#35545c",
 };

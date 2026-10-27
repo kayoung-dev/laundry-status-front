@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TYPE_LABEL } from "@/constants/machine-labels";
 import type { Hall } from "@/features/location/types";
 import { countFree, findLaundry, locationPath } from "@/features/location/utils";
 import styles from "./FloorList.module.css";
@@ -22,7 +23,7 @@ export default function FloorList({ hall }: { hall: Hall }) {
                   <span className={styles.floor}>{floor}층</span>
                   <span className={styles.name}>세탁실</span>
                   <span className={styles.free}>
-                    빈 세탁기 {countFree(laundry.machines, "washer")} · 빈 건조기 {countFree(laundry.machines, "dryer")}
+                    빈 {TYPE_LABEL.washer} {countFree(laundry.machines, "washer")} · 빈 {TYPE_LABEL.dryer} {countFree(laundry.machines, "dryer")}
                   </span>
                 </Link>
               ) : (

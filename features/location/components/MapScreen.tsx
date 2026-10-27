@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { LOCATION_PATH } from "@/constants/navigation";
 import { useSelectedHall } from "@/hooks/useSelectedHall";
-import { SPACING_TABS, VIEW_TABS } from "@/features/location/constants";
+import { LAUNDRY_PENDING, SPACING_TABS, VIEW_TABS } from "@/features/location/constants";
 import { HALL_LIST } from "@/features/location/hall-data";
 import type { Hall, KindFilter, MapView } from "@/features/location/types";
 import { findHallByName, laundryFloorsLabel, locationPath, matchesKind } from "@/features/location/utils";
@@ -32,23 +32,16 @@ export default function MapScreen({ hall }: { hall?: Hall }) {
   const dimmedIds = HALL_LIST.filter((h) => !matchesKind(h, filter)).map((h) => h.id);
   const showMap = Boolean(hall) || view === "3d";
 
+  const laundryLabel = hall && hall.laundries.length > 0 ? `세탁실 ${laundryFloorsLabel(hall)}` : null;
+
   const hero = hall ? (
     <LocationHero
       crumbs={[{ label: "세탁실 위치", href: LOCATION_PATH }, { label: hall.name }]}
       back={{ href: LOCATION_PATH, label: "캠퍼스 지도로" }}
       title={hall.name}
       code={hall.no}
-      mobileLead={`지상 ${hall.floors}층 · ${hall.laundries.length > 0 ? `세탁실 ${laundryFloorsLabel(hall)}` : "세탁실 정보 준비 중"}`}
-      chips={
-        <>
-          <span className={styles.chip}>지상 {hall.floors}층</span>
-          {hall.laundries.length > 0 && (
-            <span className={styles.chip} data-tone="accent">
-              세탁실 {laundryFloorsLabel(hall)}
-            </span>
-          )}
-        </>
-      }
+      mobileLead={`지상 ${hall.floors}층 · ${laundryLabel ?? LAUNDRY_PENDING}`}
+      chips={[{ label: `지상 ${hall.floors}층` }, ...(laundryLabel ? [{ label: laundryLabel, accent: true }] : [])]}
       actions={<SegmentedControl label="층 간격" options={SPACING_TABS} value={spacing} onChange={setSpacing} />}
     />
   ) : (

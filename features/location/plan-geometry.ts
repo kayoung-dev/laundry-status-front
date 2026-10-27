@@ -39,6 +39,11 @@ export function rectStyle(f: PlanFrame, r: PlanRect): CSSProperties {
   };
 }
 
+/** Corners of a rectangle, clockwise from the back-left one. */
+export function rectOutline(r: PlanRect): PlanPoint[] {
+  return [[r.x, r.y], [r.x + r.w, r.y], [r.x + r.w, r.y + r.d], [r.x, r.y + r.d]];
+}
+
 export function rectPath(r: PlanRect): string {
   return `M${r.x} ${r.y}h${r.w}v${r.d}h${-r.w}Z`;
 }

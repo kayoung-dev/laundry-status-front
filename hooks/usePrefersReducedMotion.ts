@@ -10,7 +10,7 @@ function subscribe(listener: () => void) {
   return () => media.removeEventListener("change", listener);
 }
 
-/** The OS "동작 줄이기" setting: camera moves and floor spreads then switch at once. */
+/** The OS "동작 줄이기" setting; animations and smooth scrolling switch to instant when it is on. */
 export function usePrefersReducedMotion(): boolean {
   return useSyncExternalStore(
     subscribe,
