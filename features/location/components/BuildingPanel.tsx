@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Icon from "@/components/ui/Icon";
+import { LAUNDRY_PENDING } from "@/features/location/constants";
 import type { Hall } from "@/features/location/types";
 import { countStates, hallMachines, kindSummary, laundryFloorsLabel, locationPath } from "@/features/location/utils";
 import FloorList from "./FloorList";
@@ -34,7 +35,7 @@ export default function BuildingPanel({ hall }: { hall: Hall }) {
           <div className={styles.heading}>
             <span className={styles.eyebrow}>{hall.name}</span>
             <h2 id="laundry-summary-title" className={styles.title}>
-              세탁실 정보 준비 중
+              {LAUNDRY_PENDING}
             </h2>
             <p className={styles.note}>관리자가 세탁실을 등록하면 층과 기기 번호를 보여드려요.</p>
           </div>

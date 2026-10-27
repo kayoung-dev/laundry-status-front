@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Icon from "@/components/ui/Icon";
 import { LOCATION_PATH } from "@/constants/navigation";
 import type { Hall, Laundry } from "@/features/location/types";
 import { firstPick, kindSummary, locationPath } from "@/features/location/utils";
@@ -30,14 +31,10 @@ export default function FloorScreen({ hall, laundry }: FloorScreenProps) {
         back={{ href: locationPath(hall.id), label: `${hall.name} 구성도로` }}
         title={`${hall.name} ${laundry.floor}층 세탁실`}
         mobileLead={summary}
-        chips={<span className={styles.chip}>{summary}</span>}
+        chips={[{ label: summary }]}
         actions={
           <button type="button" className={styles.route} aria-pressed={showRoute} onClick={() => setShowRoute(!showRoute)}>
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-              <circle cx="3.5" cy="12.5" r="1.8" stroke="currentColor" strokeWidth="1.4" fill="none" />
-              <circle cx="12.5" cy="3.5" r="1.8" stroke="currentColor" strokeWidth="1.4" fill="none" />
-              <path d="M5.2 12.5H9a2.5 2.5 0 0 0 0-5H7a2.5 2.5 0 0 1 0-5h3.7" stroke="currentColor" strokeWidth="1.4" fill="none" strokeDasharray="1.6 1.8" strokeLinecap="round" />
-            </svg>
+            <Icon name="route" />
             가는 길
           </button>
         }

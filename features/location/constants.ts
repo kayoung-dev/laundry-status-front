@@ -1,4 +1,4 @@
-import { STATE_LABEL } from "@/constants/machine-labels";
+import { STATE_LABEL, TYPE_LABEL } from "@/constants/machine-labels";
 import type { MachineState } from "@/types/machine";
 import type { KindFilter, MapView } from "./types";
 
@@ -8,6 +8,9 @@ export const LOCATION_STATE_LABEL: Record<MachineState, string> = {
   available: "비어 있음",
   in_use: "동작 중",
 };
+
+/** Shown for halls whose laundry rooms are not registered yet. */
+export const LAUNDRY_PENDING = "세탁실 정보 준비 중";
 
 /** Order of the state groups in the machine list. */
 export const STATE_ORDER: MachineState[] = ["available", "in_use", "maintenance", "error", "unknown"];
@@ -19,8 +22,8 @@ export const VIEW_TABS: { id: MapView; label: string; short: string }[] = [
 
 export const KIND_FILTERS: { id: KindFilter; label: string }[] = [
   { id: "all", label: "전체" },
-  { id: "washer", label: "세탁기" },
-  { id: "dryer", label: "건조기" },
+  { id: "washer", label: TYPE_LABEL.washer },
+  { id: "dryer", label: TYPE_LABEL.dryer },
 ];
 
 export const SPACING_TABS: { id: "open" | "closed"; label: string }[] = [

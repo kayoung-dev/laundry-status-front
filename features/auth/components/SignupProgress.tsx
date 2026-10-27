@@ -21,7 +21,7 @@ export default function SignupProgress({ step }: { step: number }) {
                 <span className={styles.num}>{String(n).padStart(2, "0")}</span>
               )}
               {name}
-              {status === "done" && <span className={styles.srOnly}>, 완료</span>}
+              {status === "done" && <span className="sr-only">, 완료</span>}
             </span>
           </li>
         );

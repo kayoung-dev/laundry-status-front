@@ -1,9 +1,8 @@
 "use client";
 
 import { KIND_FILTERS } from "@/features/location/constants";
-import { HALL_LIST } from "@/features/location/hall-data";
 import type { KindFilter } from "@/features/location/types";
-import { matchesKind } from "@/features/location/utils";
+import { hallsMatching } from "@/features/location/utils";
 import HallRow from "./HallRow";
 import styles from "./HallList.module.css";
 
@@ -18,7 +17,7 @@ interface HallListProps {
 
 /** "생활관 선택" beside the map (a bottom sheet on phones). Hovering a row lights up its block. */
 export default function HallList({ filter, onFilterChange, selectedId, onHover, sheet }: HallListProps) {
-  const halls = HALL_LIST.filter((h) => matchesKind(h, filter));
+  const halls = hallsMatching(filter);
 
   return (
     <section aria-labelledby="hall-list-title" className={styles.panel} data-sheet={sheet || undefined}>

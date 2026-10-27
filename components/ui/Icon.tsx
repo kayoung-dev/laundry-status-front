@@ -159,6 +159,36 @@ const ICONS = {
       />
     ),
   },
+  plus: { viewBox: "0 0 16 16", body: <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /> },
+  minus: { viewBox: "0 0 16 16", body: <path d="M3 8h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /> },
+  "rotate-left": {
+    viewBox: "0 0 16 16",
+    body: (
+      <>
+        <path d="M3.5 6.5A5 5 0 1 1 3 9.5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+        <path d="M3 3v3.5h3.5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      </>
+    ),
+  },
+  target: {
+    viewBox: "0 0 16 16",
+    body: (
+      <>
+        <circle cx="8" cy="8" r="5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+        <circle cx="8" cy="8" r="1.6" fill="currentColor" />
+      </>
+    ),
+  },
+  route: {
+    viewBox: "0 0 16 16",
+    body: (
+      <>
+        <circle cx="3.5" cy="12.5" r="1.8" stroke="currentColor" strokeWidth="1.4" fill="none" />
+        <circle cx="12.5" cy="3.5" r="1.8" stroke="currentColor" strokeWidth="1.4" fill="none" />
+        <path d="M5.2 12.5H9a2.5 2.5 0 0 0 0-5H7a2.5 2.5 0 0 1 0-5h3.7" stroke="currentColor" strokeWidth="1.4" fill="none" strokeDasharray="1.6 1.8" strokeLinecap="round" />
+      </>
+    ),
+  },
 } as const;
 
 export type IconName = keyof typeof ICONS;

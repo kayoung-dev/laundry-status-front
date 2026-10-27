@@ -144,7 +144,7 @@ export default function AccountStep({ form, onChange, onPrev, onNext }: AccountS
         />
         {sent && (
           <span className={`${field.suffix} ${styles.timer}`} data-expired={left === 0 || undefined}>
-            <span className={field.srOnly}>남은 시간 </span>
+            <span className="sr-only">남은 시간 </span>
             {formatCountdown(left)}
           </span>
         )}
@@ -178,7 +178,7 @@ export default function AccountStep({ form, onChange, onPrev, onNext }: AccountS
           <li key={check.label} className={styles.rule} data-ok={check.ok || undefined}>
             <Icon name="check-badge" size={14} className={styles.ruleIcon} />
             {check.label}
-            <span className={field.srOnly}>{check.ok ? " 충족" : " 미충족"}</span>
+            <span className="sr-only">{check.ok ? " 충족" : " 미충족"}</span>
           </li>
         ))}
       </ul>
