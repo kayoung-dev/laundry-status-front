@@ -189,13 +189,16 @@ export function describeMachine(machine: MachineSnapshotItem, now: Date | null):
     };
   }
 
+  // unknown: the camera cannot read the display (blank, partial digits) or has gone silent.
   return {
     ...base,
     tone: "unknown",
-    dialLabel: "상태",
-    dialValue: "확인 중",
-    title: "상태를 확인하고 있어요",
-    meta: "카메라에서 최근 신호가 없어요. 실제와 다르면 알려 주세요.",
+    badge: "카메라 오류",
+    dialLabel: "카메라",
+    dialValue: "오류",
+    dialAria: `${label}, 카메라 오류`,
+    title: "카메라 오류",
+    meta: "카메라가 표시창 숫자를 읽지 못하고 있어요. 실제와 다르면 알려 주세요.",
   };
 }
 

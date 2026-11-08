@@ -7,6 +7,7 @@ export const LOCATION_STATE_LABEL: Record<MachineState, string> = {
   ...STATE_LABEL,
   available: "비어 있음",
   in_use: "동작 중",
+  unknown: "카메라 오류",
 };
 
 /** Shown for halls whose laundry rooms are not registered yet. */
