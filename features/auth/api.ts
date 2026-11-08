@@ -1,10 +1,10 @@
-import { apiRequest } from "@/lib/api/client";
+import { apiRequest, studentFetch } from "@/lib/api/client";
+import type { StudentUser } from "@/types/student";
 import type { TermKey } from "./constants";
 
-// Sign-up calls the backend (POST /auth/signup/code, POST /auth/signup);
-// failures are ApiErrors whose status signupErrorMessage() turns into text.
-// Student login is not in the backend yet, so login() is still a stand-in
-// that waits like a request would and accepts the input.
+// Failures are ApiErrors; signupErrorMessage() / loginErrorMessage() turn
+// their status into text. Session reads and logout shared with the header
+// are in @/lib/api/student-session.
 
 export interface LoginRequest {
   email: string;
@@ -25,14 +25,16 @@ export interface SignupRequest {
   agreements: Record<TermKey, boolean>;
 }
 
-const STAND_IN_DELAY_MS = 900;
-
-function standIn(): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, STAND_IN_DELAY_MS));
+interface LoginResponse {
+  token: string;
+  expiresAt: string;
+  user: StudentUser;
 }
 
-export function login(_request: LoginRequest): Promise<void> {
-  return standIn();
+/** Signs in; the API sets the httpOnly session cookie, so this must send credentials. */
+export async function login(request: LoginRequest): Promise<StudentUser> {
+  const res = await studentFetch<LoginResponse>("/auth/login", { method: "POST", body: JSON.stringify(request) });
+  return res.user;
 }
 
 /** Emails a sign-up code to an allowed address (204). */
