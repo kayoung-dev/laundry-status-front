@@ -27,15 +27,15 @@ export function countByType(machines: MachineSnapshotItem[]): TypeCount[] {
 }
 
 /**
- * Seconds left right now: an MM:SS reading counted down since it arrived, or
- * whole minutes for a minutes-only display. Null when the time is unknown.
+ * Seconds left as the camera last read them: exact for an MM:SS display,
+ * whole minutes for a minutes-only one. Shown as received, never counted down
+ * here, so the screen always matches the machine's own display.
  */
-export function secondsLeft(machine: MachineSnapshotItem, now: Date | null): number | null {
-  if (machine.remainingSec == null) {
-    return machine.remainingMin == null ? null : machine.remainingMin * 60;
+export function secondsLeft(machine: MachineSnapshotItem): number | null {
+  if (machine.remainingSec != null) {
+    return machine.remainingSec;
   }
-  const elapsed = now && machine.receivedAt ? Math.floor((now.getTime() - machine.receivedAt) / 1000) : 0;
-  return Math.max(0, machine.remainingSec - Math.max(0, elapsed));
+  return machine.remainingMin == null ? null : machine.remainingMin * 60;
 }
 
 /** "3분 10초", "45초", or "24분" for a minutes-only display. */
@@ -129,7 +129,7 @@ export function describeMachine(machine: MachineSnapshotItem, now: Date | null):
 
   if (state === "in_use") {
     const exact = machine.remainingSec != null;
-    const leftSec = secondsLeft(machine, now);
+    const leftSec = secondsLeft(machine);
     const left = leftSec == null ? null : Math.ceil(leftSec / 60);
     const ratio = leftSec == null ? null : elapsedRatio(type, leftSec / 60);
     const soon = left != null && left <= SOON_MIN;

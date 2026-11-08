@@ -20,8 +20,8 @@ export default function RoomVerdict({ machines, now, loading, isAlertOn, onToggl
   const outOfService = machines.filter((m) => m.state === "maintenance" || m.state === "error").length;
   const nextWasher = nextToFinish(machines, "washer");
   const nextDryer = nextToFinish(machines, "dryer");
-  const leftText = (m: MachineSnapshotItem) => formatLeft(secondsLeft(m, now)!, m.remainingSec != null);
-  const clock = (m: MachineSnapshotItem) => (now ? formatClock(now, secondsLeft(m, now)! / 60) : `${leftText(m)} 후`);
+  const leftText = (m: MachineSnapshotItem) => formatLeft(secondsLeft(m)!, m.remainingSec != null);
+  const clock = (m: MachineSnapshotItem) => (now ? formatClock(now, secondsLeft(m)! / 60) : `${leftText(m)} 후`);
 
   let tone: "ok" | "wait" | "none" = "none";
   let title: string;
