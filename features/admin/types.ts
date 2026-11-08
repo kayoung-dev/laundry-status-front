@@ -8,6 +8,8 @@ export interface DashboardMachine {
   roomName: string;
   state: MachineState;
   remainingMin: number | null;
+  /** Exact seconds left for MM:SS displays; null for minutes-only displays. */
+  remainingSec: number | null;
   errorCode: string | null;
   overrideActive: boolean;
   overrideBy: string | null;

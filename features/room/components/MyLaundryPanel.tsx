@@ -31,7 +31,7 @@ export default function MyLaundryPanel({ machine, now, alertOn, onToggleAlert, o
   const view = describeMachine(machine, now);
   const running = machine.state === "in_use";
   const notStarted = machine.state === "available";
-  const left = view.remainingMin;
+  const leftSec = view.remainingSecTotal;
 
   return (
     <section aria-labelledby="mine-heading" className={styles.panel} data-active>
@@ -45,12 +45,12 @@ export default function MyLaundryPanel({ machine, now, alertOn, onToggleAlert, o
         </span>
       </div>
 
-      {running && left != null ? (
+      {running && leftSec != null ? (
         <div role="timer" className={styles.timer}>
-          <span className={styles.minutes}>{left}분</span>
+          <span className={styles.minutes}>{view.remainingText}</span>
           <span className={styles.left}>남음</span>
           <span className={styles.endAt}>
-            {now ? `${formatClock(now, left)} 종료 예정` : "종료 시각 계산 중"}
+            {now ? `${formatClock(now, leftSec / 60)} 종료 예정` : "종료 시각 계산 중"}
             {view.steps && <span className={styles.endPhase}> · {view.title}</span>}
           </span>
         </div>

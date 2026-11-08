@@ -18,8 +18,9 @@ export function useRoomStream(roomId: string) {
     source.addEventListener("snapshot", (event) => {
       const payload = JSON.parse((event as MessageEvent<string>).data) as RoomSnapshotPayload;
       const next: Record<string, MachineSnapshotItem> = {};
+      const receivedAt = Date.now();
       for (const machine of payload.machines) {
-        next[machine.machineId] = machine;
+        next[machine.machineId] = { ...machine, receivedAt };
       }
       setMachines(next);
       setConnectionStatus("connected");
@@ -38,6 +39,8 @@ export function useRoomStream(roomId: string) {
             ...existing,
             state: payload.state,
             remainingMin: payload.remainingMin,
+            remainingSec: payload.remainingSec,
+            receivedAt: Date.now(),
             washStage: payload.washStage,
             errorCode: payload.errorCode,
             version: payload.version,
