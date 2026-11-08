@@ -13,6 +13,7 @@ export const LOGIN_ERRORS = {
   empty: "이메일과 비밀번호를 모두 입력해 주세요.",
   notAllowed: `${ALLOWED_EMAIL_TEXT} 메일 주소로 로그인해 주세요.`,
   mismatch: "이메일 또는 비밀번호가 맞지 않아요. 다시 확인해 주세요.",
+  tooMany: "로그인 시도가 너무 많아요. 1분 뒤에 다시 시도해 주세요.",
   social: "Google 로그인은 아직 준비하고 있어요. 이메일과 비밀번호로 로그인해 주세요.",
   failed: "로그인하지 못했어요. 잠시 후 다시 시도해 주세요.",
 } as const;

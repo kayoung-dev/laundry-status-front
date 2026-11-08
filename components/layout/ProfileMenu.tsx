@@ -6,22 +6,35 @@ import Icon from "@/components/ui/Icon";
 import { LOGIN_PATH, SIGNUP_PATH } from "@/constants/navigation";
 import { useDismiss } from "@/hooks/useDismiss";
 import { useSelectedHall } from "@/hooks/useSelectedHall";
+import { setStudentSession, useStudentSession } from "@/hooks/useStudentSession";
+import { logoutStudent } from "@/lib/api/student-session";
 import motion from "@/styles/motion.module.css";
 import styles from "./ProfileMenu.module.css";
 
 const MENU_ITEMS = ["내 정보", "알림 설정", "내 제보 내역"];
 
 /**
- * Student profile dropdown. There is no student session yet, so the header
- * always shows a guest with links to log in or sign up, and the other items
- * have no destination.
+ * Student profile dropdown: the signed-in student's name with a logout
+ * button, or a guest with links to log in or sign up. The other items have
+ * no destination yet.
  */
 export default function ProfileMenu() {
   const hall = useSelectedHall();
+  const student = useStudentSession();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const close = useCallback(() => setOpen(false), []);
   useDismiss(rootRef, open, close);
+
+  async function logout() {
+    close();
+    try {
+      await logoutStudent();
+    } catch {
+      // Signed out on this page either way; a stale cookie just fails the next /auth/me.
+    }
+    setStudentSession(null);
+  }
 
   return (
     <div ref={rootRef} className={styles.root}>
@@ -44,7 +57,7 @@ export default function ProfileMenu() {
       {open && (
         <div role="menu" aria-label="프로필" className={`${styles.menu} ${motion.rise}`}>
           <div className={styles.identity}>
-            <span className={styles.name}>게스트</span>
+            <span className={styles.name}>{student ? student.name : "게스트"}</span>
             <span className={styles.meta}>기본 세탁실 {hall} 세탁실</span>
           </div>
           {MENU_ITEMS.map((label) => (
@@ -53,12 +66,20 @@ export default function ProfileMenu() {
             </button>
           ))}
           <span aria-hidden="true" className={styles.separator} />
-          <Link href={LOGIN_PATH} role="menuitem" className={styles.item}>
-            로그인
-          </Link>
-          <Link href={SIGNUP_PATH} role="menuitem" className={`${styles.item} ${styles.itemMuted}`}>
-            회원가입
-          </Link>
+          {student ? (
+            <button type="button" role="menuitem" className={`${styles.item} ${styles.itemMuted}`} onClick={logout}>
+              로그아웃
+            </button>
+          ) : (
+            <>
+              <Link href={LOGIN_PATH} role="menuitem" className={styles.item}>
+                로그인
+              </Link>
+              <Link href={SIGNUP_PATH} role="menuitem" className={`${styles.item} ${styles.itemMuted}`}>
+                회원가입
+              </Link>
+            </>
+          )}
         </div>
       )}
     </div>

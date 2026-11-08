@@ -1,10 +1,21 @@
 import { ApiError } from "@/lib/api/client";
-import { ALLOWED_EMAIL_DOMAINS, PASSWORD_MIN_LENGTH, SIGNUP_ERRORS, type PanelTone } from "./constants";
+import { ALLOWED_EMAIL_DOMAINS, LOGIN_ERRORS, PASSWORD_MIN_LENGTH, SIGNUP_ERRORS, type PanelTone } from "./constants";
 
 /** An address on one of ALLOWED_EMAIL_DOMAINS (exact domain, not a subdomain). */
 export function isAllowedEmail(email: string): boolean {
   const match = /^[^@\s]+@([^@\s]+)$/.exec(email.trim().toLowerCase());
   return match != null && (ALLOWED_EMAIL_DOMAINS as readonly string[]).includes(match[1]);
+}
+
+/** Login error message for a failed POST /auth/login (backend StudentAuthService). */
+export function loginErrorMessage(error: unknown): string {
+  if (error instanceof ApiError && error.status === 401) {
+    return LOGIN_ERRORS.mismatch;
+  }
+  if (error instanceof ApiError && error.status === 429) {
+    return LOGIN_ERRORS.tooMany;
+  }
+  return LOGIN_ERRORS.failed;
 }
 
 /** Sign-up error message for a failed POST /auth/signup/code or /auth/signup (status codes: backend SignupService). */

@@ -4,18 +4,20 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { DEFAULT_ROOM_PATH, SIGNUP_PATH } from "@/constants/navigation";
+import { selectHall } from "@/hooks/useSelectedHall";
+import { setStudentSession } from "@/hooks/useStudentSession";
 import { login } from "@/features/auth/api";
 import { EMAIL_PLACEHOLDER, LOGIN_ERRORS } from "@/features/auth/constants";
 import button from "@/features/auth/styles/button.module.css";
 import field from "@/features/auth/styles/field.module.css";
-import { isAllowedEmail } from "@/features/auth/utils";
+import { isAllowedEmail, loginErrorMessage } from "@/features/auth/utils";
 import CheckBox from "./CheckBox";
 import FormError from "./FormError";
 import PasswordInput from "./PasswordInput";
 import Spinner from "./Spinner";
 import styles from "./LoginForm.module.css";
 
-/** Student login with a school email and password. */
+/** Student login with an email and password; lands on the student's default laundry room. */
 export default function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -45,11 +47,15 @@ export default function LoginForm() {
     setError("");
     setBusy(true);
     try {
-      await login({ email: email.trim(), password, remember });
-      router.push(DEFAULT_ROOM_PATH);
-    } catch {
+      const user = await login({ email: email.trim(), password, remember });
+      setStudentSession(user);
+      if (user.hall) {
+        selectHall(user.hall);
+      }
+      router.push(user.defaultRoomId ? `/room/${user.defaultRoomId}` : DEFAULT_ROOM_PATH);
+    } catch (err) {
       setBusy(false);
-      fail(LOGIN_ERRORS.failed);
+      fail(loginErrorMessage(err));
     }
   }
 
