@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import Icon from "@/components/ui/Icon";
 import { HALLS } from "@/constants/navigation";
 import { SIGNUP_ERRORS, roomsOfHall } from "@/features/auth/constants";
+import { signupErrorMessage } from "@/features/auth/utils";
 import field from "@/features/auth/styles/field.module.css";
 import step from "@/features/auth/styles/step.module.css";
 import type { DormForm } from "@/features/auth/types";
@@ -52,9 +53,9 @@ export default function DormStep({ form, onChange, onPrev, onSubmit }: DormStepP
     setBusy(true);
     try {
       await onSubmit();
-    } catch {
+    } catch (err) {
       setBusy(false);
-      fail(SIGNUP_ERRORS.failed);
+      fail(signupErrorMessage(err));
     }
   }
 
