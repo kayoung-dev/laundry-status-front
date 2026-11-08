@@ -13,8 +13,6 @@ export interface MachineSnapshotItem {
   overrideActive: boolean;
   version: number;
   updatedAt: string | null;
-  /** Browser time (ms) this item's state arrived; not from the backend. Counts `remainingSec` down without trusting clock sync. */
-  receivedAt?: number;
 }
 
 /** `snapshot` event of GET /rooms/{roomId}/stream. */

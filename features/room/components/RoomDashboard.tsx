@@ -21,9 +21,8 @@ interface RoomDashboardProps {
 
 export default function RoomDashboard({ roomId, highlightMachineId }: RoomDashboardProps) {
   const hall = useSelectedHall();
+  const now = useNow();
   const { machines, connectionStatus } = useRoomStream(roomId);
-  // Tick every second only while some machine shows seconds (MM:SS); minutes need no more than 30s.
-  const now = useNow(machines.some((m) => m.state === "in_use" && m.remainingSec != null) ? 1000 : 30_000);
   const reports = useMachineReports();
   const { myMachineId, register } = useMyLaundry();
   const clearMine = useCallback(() => register(null), [register]);
