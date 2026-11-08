@@ -42,6 +42,11 @@ export async function requestSignupCode(email: string): Promise<void> {
   await apiRequest("/auth/signup/code", { method: "POST", body: JSON.stringify({ email }) });
 }
 
+/** Checks an emailed code without using it up (204; 422 when wrong or expired). */
+export async function verifySignupCode(email: string, code: string): Promise<void> {
+  await apiRequest("/auth/signup/code/verify", { method: "POST", body: JSON.stringify({ email, code }) });
+}
+
 /** Creates the student account (201). */
 export async function signup(request: SignupRequest): Promise<void> {
   await apiRequest("/auth/signup", { method: "POST", body: JSON.stringify(request) });

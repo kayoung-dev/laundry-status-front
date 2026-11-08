@@ -10,6 +10,8 @@ export interface AccountForm {
   confirm: string;
   /** When the last code was sent (ms), or null before the first one. */
   codeSentAt: number | null;
+  /** The server accepted `code` for `email` (POST /auth/signup/code/verify). */
+  codeVerified: boolean;
 }
 
 /** Sign-up step 3. */
