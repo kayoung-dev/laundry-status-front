@@ -19,7 +19,7 @@ import TermsStep from "./TermsStep";
 import styles from "./SignupView.module.css";
 
 const NO_AGREEMENTS: Agreements = { tos: false, privacy: false, push: false };
-const EMPTY_ACCOUNT: AccountForm = { email: "", code: "", password: "", confirm: "", codeSentAt: null };
+const EMPTY_ACCOUNT: AccountForm = { email: "", code: "", password: "", confirm: "", codeSentAt: null, codeVerified: false };
 const EMPTY_DORM: DormForm = { name: "", hall: "", floor: "", roomNumber: "", roomId: "" };
 
 /** /signup — four steps: terms, account, dorm info, done. */

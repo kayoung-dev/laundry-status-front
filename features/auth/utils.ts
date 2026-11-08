@@ -18,8 +18,12 @@ export function loginErrorMessage(error: unknown): string {
   return LOGIN_ERRORS.failed;
 }
 
-/** Sign-up error message for a failed POST /auth/signup/code or /auth/signup (status codes: backend SignupService). */
-export function signupErrorMessage(error: unknown): string {
+/**
+ * Sign-up error message for a failed POST /auth/signup/code, /code/verify or
+ * /auth/signup (status codes: backend SignupService). `codeWrong` replaces
+ * the 422 text where the code field is on screen.
+ */
+export function signupErrorMessage(error: unknown, codeWrong: string = SIGNUP_ERRORS.codeInvalid): string {
   if (!(error instanceof ApiError)) {
     return SIGNUP_ERRORS.failed;
   }
@@ -29,7 +33,7 @@ export function signupErrorMessage(error: unknown): string {
     case 409:
       return SIGNUP_ERRORS.emailTaken;
     case 422:
-      return SIGNUP_ERRORS.codeInvalid;
+      return codeWrong;
     case 429:
       return SIGNUP_ERRORS.codeTooSoon;
     case 503:
