@@ -1,6 +1,6 @@
 import Icon from "@/components/ui/Icon";
 import { formatClock } from "@/lib/time";
-import { countByType, nextToFinish, typeLabel } from "../machine-view";
+import { countByType, formatLeft, nextToFinish, secondsLeft, typeLabel } from "../machine-view";
 import type { MachineSnapshotItem } from "../types";
 import styles from "./RoomVerdict.module.css";
 
@@ -20,7 +20,8 @@ export default function RoomVerdict({ machines, now, loading, isAlertOn, onToggl
   const outOfService = machines.filter((m) => m.state === "maintenance" || m.state === "error").length;
   const nextWasher = nextToFinish(machines, "washer");
   const nextDryer = nextToFinish(machines, "dryer");
-  const clock = (min: number) => (now ? formatClock(now, min) : `${min}분 후`);
+  const leftText = (m: MachineSnapshotItem) => formatLeft(secondsLeft(m)!, m.remainingSec != null);
+  const clock = (m: MachineSnapshotItem) => (now ? formatClock(now, secondsLeft(m)! / 60) : `${leftText(m)} 후`);
 
   let tone: "ok" | "wait" | "none" = "none";
   let title: string;
@@ -36,13 +37,13 @@ export default function RoomVerdict({ machines, now, loading, isAlertOn, onToggl
         dryers.available > 0
           ? ` · 건조기 ${dryers.available}대 비어 있음`
           : nextDryer
-            ? ` · 건조기는 ${clock(nextDryer.remainingMin!)}부터 사용 가능`
+            ? ` · 건조기는 ${clock(nextDryer)}부터 사용 가능`
             : " · 건조기는 지금 사용할 수 없음";
     }
   } else if (nextWasher) {
     tone = "wait";
     title = "지금은 모두 사용 중이에요";
-    sub = `${clock(nextWasher.remainingMin!)}에 ${nextWasher.label} 사용이 끝나요 (${nextWasher.remainingMin}분 후)`;
+    sub = `${clock(nextWasher)}에 ${nextWasher.label} 사용이 끝나요 (${leftText(nextWasher)} 후)`;
   } else {
     title = "지금 바로 쓸 수 있는 세탁기가 없어요";
     sub = machines.some((m) => m.state === "in_use")

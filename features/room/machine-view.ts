@@ -26,6 +26,36 @@ export function countByType(machines: MachineSnapshotItem[]): TypeCount[] {
   return sortTypes([...counts.keys()]).map((type) => counts.get(type)!);
 }
 
+/**
+ * Seconds left as the camera last read them: exact for an MM:SS display,
+ * whole minutes for a minutes-only one. Shown as received, never counted down
+ * here, so the screen always matches the machine's own display.
+ */
+export function secondsLeft(machine: MachineSnapshotItem): number | null {
+  if (machine.remainingSec != null) {
+    return machine.remainingSec;
+  }
+  return machine.remainingMin == null ? null : machine.remainingMin * 60;
+}
+
+/** "3분 10초", "45초", or "24분" for a minutes-only display. */
+export function formatLeft(seconds: number, exact: boolean): string {
+  const min = Math.floor(seconds / 60);
+  const sec = seconds % 60;
+  if (!exact) {
+    return `${Math.ceil(seconds / 60)}분`;
+  }
+  if (min === 0) {
+    return `${sec}초`;
+  }
+  return sec === 0 ? `${min}분` : `${min}분 ${sec}초`;
+}
+
+/** "3:10", like the machine's own display. */
+function formatTimer(seconds: number): string {
+  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+}
+
 /** Share of the cycle already done, from minutes left and the type's typical cycle. */
 function elapsedRatio(type: string, remainingMin: number): number {
   const total = Math.max(CYCLE_MIN[type] ?? DEFAULT_CYCLE_MIN, remainingMin);
@@ -77,6 +107,8 @@ export function describeMachine(machine: MachineSnapshotItem, now: Date | null):
     bar: null,
     meta: "",
     remainingMin: null,
+    remainingText: "",
+    remainingSecTotal: null,
     canNotify: false,
     canRegister: false,
   };
@@ -96,25 +128,30 @@ export function describeMachine(machine: MachineSnapshotItem, now: Date | null):
   }
 
   if (state === "in_use") {
-    const left = machine.remainingMin;
-    const ratio = left == null ? null : elapsedRatio(type, left);
+    const exact = machine.remainingSec != null;
+    const leftSec = secondsLeft(machine);
+    const left = leftSec == null ? null : Math.ceil(leftSec / 60);
+    const ratio = leftSec == null ? null : elapsedRatio(type, leftSec / 60);
     const soon = left != null && left <= SOON_MIN;
-    const endAt = left != null && now ? formatClock(now, left) : "";
+    const endAt = leftSec != null && now ? formatClock(now, leftSec / 60) : "";
+    const leftText = leftSec == null ? "" : formatLeft(leftSec, exact);
     const view: MachineView = {
       ...base,
       tone: soon ? "soon" : "busy",
       badge: soon ? "곧 끝나요" : "동작 중",
       dialLabel: left == null ? "지금" : "남은 시간",
-      dialValue: left == null ? "사용 중" : `${left}분`,
+      dialValue: leftSec == null ? "사용 중" : exact ? formatTimer(leftSec) : `${left}분`,
       dialNumeric: left != null,
       dialSub: endAt ? `${endAt} 종료` : "",
       dialAria:
         left == null
           ? `${label}, 사용 중`
-          : `${label}, 진행률 ${Math.round((ratio ?? 0) * 100)}퍼센트, ${left}분 남음`,
+          : `${label}, 진행률 ${Math.round((ratio ?? 0) * 100)}퍼센트, ${leftText} 남음`,
       progress: ratio ?? 0,
       meta: endAt ? `${endAt} 종료 예정` : "끝나는 시간을 확인하고 있어요",
       remainingMin: left,
+      remainingText: leftText,
+      remainingSecTotal: leftSec,
       canNotify: true,
     };
     if (type === "washer") {
@@ -152,13 +189,16 @@ export function describeMachine(machine: MachineSnapshotItem, now: Date | null):
     };
   }
 
+  // unknown: the camera cannot read the display (blank, partial digits) or has gone silent.
   return {
     ...base,
     tone: "unknown",
-    dialLabel: "상태",
-    dialValue: "확인 중",
-    title: "상태를 확인하고 있어요",
-    meta: "카메라에서 최근 신호가 없어요. 실제와 다르면 알려 주세요.",
+    badge: "카메라 오류",
+    dialLabel: "카메라",
+    dialValue: "오류",
+    dialAria: `${label}, 카메라 오류`,
+    title: "카메라 오류",
+    meta: "카메라가 표시창 숫자를 읽지 못하고 있어요. 실제와 다르면 알려 주세요.",
   };
 }
 
@@ -167,6 +207,6 @@ export function nextToFinish(machines: MachineSnapshotItem[], type: string): Mac
   return (
     machines
       .filter((m) => m.type === type && m.state === "in_use" && m.remainingMin != null)
-      .sort((a, b) => a.remainingMin! - b.remainingMin!)[0] ?? null
+      .sort((a, b) => (a.remainingSec ?? a.remainingMin! * 60) - (b.remainingSec ?? b.remainingMin! * 60))[0] ?? null
   );
 }

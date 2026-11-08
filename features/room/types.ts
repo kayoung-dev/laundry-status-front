@@ -6,6 +6,8 @@ export interface MachineSnapshotItem {
   label: string;
   state: MachineState;
   remainingMin: number | null;
+  /** Exact seconds left when the display shows MM:SS ("3:10"); null for minutes-only displays. */
+  remainingSec: number | null;
   washStage: WashStage | null;
   errorCode: string | null;
   overrideActive: boolean;
@@ -24,6 +26,7 @@ export interface MachineChangedPayload {
   machineId: string;
   state: MachineState;
   remainingMin: number | null;
+  remainingSec: number | null;
   washStage: WashStage | null;
   errorCode: string | null;
   version: number;
@@ -64,6 +67,10 @@ export interface MachineView {
   meta: string;
   /** Minutes left when known, for "다음 빈자리" and the 내 세탁 timer. */
   remainingMin: number | null;
+  /** "3분 10초" when seconds are known, else "24분"; empty when unknown. */
+  remainingText: string;
+  /** Seconds left until the end, for the end clock; minutes-only displays count whole minutes. */
+  remainingSecTotal: number | null;
   canNotify: boolean;
   canRegister: boolean;
 }

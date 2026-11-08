@@ -38,6 +38,7 @@ export function useRoomStream(roomId: string) {
             ...existing,
             state: payload.state,
             remainingMin: payload.remainingMin,
+            remainingSec: payload.remainingSec,
             washStage: payload.washStage,
             errorCode: payload.errorCode,
             version: payload.version,

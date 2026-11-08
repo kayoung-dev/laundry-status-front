@@ -4,12 +4,12 @@ import { useState, type FormEvent } from "react";
 import Icon from "@/components/ui/Icon";
 import { useNow } from "@/hooks/useNow";
 import { requestSignupCode } from "@/features/auth/api";
-import { CODE_LENGTH, CODE_TTL_SEC, SCHOOL_EMAIL_PLACEHOLDER, SIGNUP_ERRORS } from "@/features/auth/constants";
+import { CODE_LENGTH, CODE_TTL_SEC, EMAIL_HINT, EMAIL_PLACEHOLDER, SIGNUP_ERRORS } from "@/features/auth/constants";
 import button from "@/features/auth/styles/button.module.css";
 import field from "@/features/auth/styles/field.module.css";
 import step from "@/features/auth/styles/step.module.css";
 import type { AccountForm } from "@/features/auth/types";
-import { checkPassword, formatCountdown, isSchoolEmail } from "@/features/auth/utils";
+import { checkPassword, formatCountdown, isAllowedEmail, signupErrorMessage } from "@/features/auth/utils";
 import FormError from "./FormError";
 import PasswordInput from "./PasswordInput";
 import StepActions from "./StepActions";
@@ -52,16 +52,16 @@ export default function AccountStep({ form, onChange, onPrev, onNext }: AccountS
     if (sending) {
       return;
     }
-    if (!isSchoolEmail(form.email)) {
-      return fail(SIGNUP_ERRORS.notSchool);
+    if (!isAllowedEmail(form.email)) {
+      return fail(SIGNUP_ERRORS.notAllowed);
     }
     setError("");
     setSending(true);
     try {
       await requestSignupCode(form.email.trim());
       onChange({ codeSentAt: Date.now(), code: "" });
-    } catch {
-      fail(SIGNUP_ERRORS.failed);
+    } catch (err) {
+      fail(signupErrorMessage(err));
     } finally {
       setSending(false);
     }
@@ -69,8 +69,8 @@ export default function AccountStep({ form, onChange, onPrev, onNext }: AccountS
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!isSchoolEmail(form.email)) {
-      return fail(SIGNUP_ERRORS.notSchool);
+    if (!isAllowedEmail(form.email)) {
+      return fail(SIGNUP_ERRORS.notAllowed);
     }
     if (!sent) {
       return fail(SIGNUP_ERRORS.codeNotSent);
@@ -90,12 +90,12 @@ export default function AccountStep({ form, onChange, onPrev, onNext }: AccountS
   return (
     <form className={step.step} aria-labelledby="signup-account-title" noValidate onSubmit={onSubmit}>
       <h1 id="signup-account-title" className={step.title}>
-        학교 메일로 <br className={step.mobileBreak} />
+        이메일로 <br className={step.mobileBreak} />
         계정을 만들어요
       </h1>
 
       <label className={field.label} htmlFor="signup-email">
-        학교 이메일
+        이메일
       </label>
       <div className={field.control}>
         <input
@@ -104,7 +104,7 @@ export default function AccountStep({ form, onChange, onPrev, onNext }: AccountS
           type="email"
           inputMode="email"
           autoComplete="email"
-          placeholder={SCHOOL_EMAIL_PLACEHOLDER}
+          placeholder={EMAIL_PLACEHOLDER}
           value={form.email}
           onChange={(event) => update({ email: event.target.value })}
           aria-describedby="signup-email-hint"
@@ -122,7 +122,7 @@ export default function AccountStep({ form, onChange, onPrev, onNext }: AccountS
             </span>
           </p>
         ) : (
-          <p className={field.hint}>학교 메일(ac.kr) 주소로만 가입할 수 있어요</p>
+          <p className={field.hint}>{EMAIL_HINT}</p>
         )}
       </div>
 
