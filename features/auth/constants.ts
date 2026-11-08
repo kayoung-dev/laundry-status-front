@@ -56,6 +56,8 @@ export const SIGNUP_ERRORS = {
   codeNotSent: "인증 코드를 먼저 받아 주세요.",
   codeFormat: `메일로 받은 ${CODE_LENGTH}자리 인증 코드를 입력해 주세요.`,
   codeExpired: "인증 코드가 만료됐어요. 다시 받아 주세요.",
+  codeNotVerified: "인증 코드 옆의 확인 버튼을 눌러 주세요.",
+  codeWrong: "인증 코드가 맞지 않거나 만료됐어요. 다시 확인해 주세요.",
   password: "비밀번호 조건을 모두 맞춰 주세요.",
   name: "이름을 입력해 주세요.",
   hall: "거주 생활관을 선택해 주세요.",

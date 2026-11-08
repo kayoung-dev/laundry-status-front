@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Icon from "@/components/ui/Icon";
 import { useNow } from "@/hooks/useNow";
-import { requestSignupCode } from "@/features/auth/api";
+import { requestSignupCode, verifySignupCode } from "@/features/auth/api";
 import { CODE_LENGTH, CODE_TTL_SEC, EMAIL_HINT, EMAIL_PLACEHOLDER, SIGNUP_ERRORS } from "@/features/auth/constants";
 import button from "@/features/auth/styles/button.module.css";
 import field from "@/features/auth/styles/field.module.css";
@@ -30,6 +30,7 @@ function secondsLeft(sentAt: number | null, now: number): number {
 export default function AccountStep({ form, onChange, onPrev, onNext }: AccountStepProps) {
   const now = useNow(1000);
   const [sending, setSending] = useState(false);
+  const [verifying, setVerifying] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
@@ -44,7 +45,9 @@ export default function AccountStep({ form, onChange, onPrev, onNext }: AccountS
   }
 
   function update(patch: Partial<AccountForm>) {
-    onChange(patch);
+    // A different address or code needs checking again.
+    const changesCode = patch.email !== undefined || patch.code !== undefined;
+    onChange(changesCode ? { ...patch, codeVerified: false } : patch);
     setError("");
   }
 
@@ -59,11 +62,36 @@ export default function AccountStep({ form, onChange, onPrev, onNext }: AccountS
     setSending(true);
     try {
       await requestSignupCode(form.email.trim());
-      onChange({ codeSentAt: Date.now(), code: "" });
+      onChange({ codeSentAt: Date.now(), code: "", codeVerified: false });
     } catch (err) {
       fail(signupErrorMessage(err));
     } finally {
       setSending(false);
+    }
+  }
+
+  async function verifyCode() {
+    if (verifying || form.codeVerified) {
+      return;
+    }
+    if (!sent) {
+      return fail(SIGNUP_ERRORS.codeNotSent);
+    }
+    if (secondsLeft(form.codeSentAt, Date.now()) === 0) {
+      return fail(SIGNUP_ERRORS.codeExpired);
+    }
+    if (!new RegExp(`^\\d{${CODE_LENGTH}}$`).test(form.code)) {
+      return fail(SIGNUP_ERRORS.codeFormat);
+    }
+    setError("");
+    setVerifying(true);
+    try {
+      await verifySignupCode(form.email.trim(), form.code);
+      onChange({ codeVerified: true });
+    } catch (err) {
+      fail(signupErrorMessage(err, SIGNUP_ERRORS.codeWrong));
+    } finally {
+      setVerifying(false);
     }
   }
 
@@ -78,8 +106,8 @@ export default function AccountStep({ form, onChange, onPrev, onNext }: AccountS
     if (secondsLeft(form.codeSentAt, Date.now()) === 0) {
       return fail(SIGNUP_ERRORS.codeExpired);
     }
-    if (!new RegExp(`^\\d{${CODE_LENGTH}}$`).test(form.code)) {
-      return fail(SIGNUP_ERRORS.codeFormat);
+    if (!form.codeVerified) {
+      return fail(SIGNUP_ERRORS.codeNotVerified);
     }
     if (!checks.every((check) => check.ok)) {
       return fail(SIGNUP_ERRORS.password);
@@ -138,15 +166,40 @@ export default function AccountStep({ form, onChange, onPrev, onNext }: AccountS
           maxLength={CODE_LENGTH}
           autoComplete="one-time-code"
           placeholder={`${CODE_LENGTH}자리 숫자`}
-          disabled={!sent}
+          disabled={!sent || form.codeVerified}
           value={form.code}
           onChange={(event) => update({ code: event.target.value.replace(/\D/g, "") })}
+          onKeyDown={(event) => {
+            // Enter in the code field checks the code instead of submitting the step.
+            if (event.key === "Enter" && !form.codeVerified) {
+              event.preventDefault();
+              void verifyCode();
+            }
+          }}
+          aria-describedby="signup-code-hint"
         />
-        {sent && (
+        {sent && !form.codeVerified && (
           <span className={`${field.suffix} ${styles.timer}`} data-expired={left === 0 || undefined}>
             <span className="sr-only">남은 시간 </span>
             {formatCountdown(left)}
           </span>
+        )}
+        <button
+          type="button"
+          className={`${button.inline} ${styles.verify}`}
+          onClick={verifyCode}
+          disabled={!sent || verifying || form.codeVerified}
+          data-done={form.codeVerified || undefined}
+        >
+          {verifying ? "확인 중" : form.codeVerified ? "확인됨" : "확인"}
+        </button>
+      </div>
+      <div id="signup-code-hint" aria-live="polite">
+        {form.codeVerified && (
+          <p className={field.success}>
+            <Icon name="check-badge" size={14} className={styles.sentIcon} />
+            <span>인증됐어요</span>
+          </p>
         )}
       </div>
 

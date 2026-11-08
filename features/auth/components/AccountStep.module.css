@@ -8,7 +8,28 @@
 }
 
 .codeInput {
-  padding-right: 80px;
+  padding-right: 136px;
+}
+
+.verify {
+  min-width: 56px;
+}
+
+/* Verified: a settled green badge rather than a waiting button (beats button.inline:disabled). */
+.verify[data-done]:disabled {
+  background: transparent;
+  color: var(--green-900);
+  cursor: default;
+  opacity: 1;
+}
+
+.verify:disabled:not([data-done]) {
+  cursor: not-allowed;
+}
+
+/* Left of the verify button; [class] outranks field.suffix's right: 16px. */
+.timer[class] {
+  right: 74px;
 }
 
 .timer {
