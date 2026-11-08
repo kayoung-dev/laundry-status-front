@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { DEFAULT_ROOM_PATH, SIGNUP_PATH } from "@/constants/navigation";
 import { login } from "@/features/auth/api";
-import { LOGIN_ERRORS, SCHOOL_EMAIL_PLACEHOLDER } from "@/features/auth/constants";
+import { EMAIL_PLACEHOLDER, LOGIN_ERRORS } from "@/features/auth/constants";
 import button from "@/features/auth/styles/button.module.css";
 import field from "@/features/auth/styles/field.module.css";
-import { isSchoolEmail } from "@/features/auth/utils";
+import { isAllowedEmail } from "@/features/auth/utils";
 import CheckBox from "./CheckBox";
 import FormError from "./FormError";
 import PasswordInput from "./PasswordInput";
@@ -39,8 +39,8 @@ export default function LoginForm() {
     if (!email.trim() || !password) {
       return fail(LOGIN_ERRORS.empty);
     }
-    if (!isSchoolEmail(email)) {
-      return fail(LOGIN_ERRORS.notSchool);
+    if (!isAllowedEmail(email)) {
+      return fail(LOGIN_ERRORS.notAllowed);
     }
     setError("");
     setBusy(true);
@@ -60,7 +60,7 @@ export default function LoginForm() {
       <h1 className={styles.title}>로그인</h1>
 
       <label className={field.label} htmlFor="login-email">
-        학교 이메일
+        이메일
       </label>
       <input
         id="login-email"
@@ -68,7 +68,7 @@ export default function LoginForm() {
         type="email"
         inputMode="email"
         autoComplete="username"
-        placeholder={SCHOOL_EMAIL_PLACEHOLDER}
+        placeholder={EMAIL_PLACEHOLDER}
         value={email}
         onChange={(event) => {
           setEmail(event.target.value);
