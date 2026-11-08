@@ -40,7 +40,11 @@ export default function MachineRow({
           "-"
         )}
       </td>
-      <td>{machine.remainingMin ?? "-"}</td>
+      <td>
+        {machine.remainingSec != null
+          ? `${Math.floor(machine.remainingSec / 60)}:${String(machine.remainingSec % 60).padStart(2, "0")}`
+          : (machine.remainingMin ?? "-")}
+      </td>
       <td>{machine.errorCode ?? "-"}</td>
       <td className={machine.needsCheck ? styles.needsCheck : undefined}>
         {machine.needsCheck ? `확인 필요 (제보 ${machine.reportCount}건)` : "-"}
